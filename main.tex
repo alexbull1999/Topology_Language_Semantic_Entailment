@@ -25,13 +25,19 @@
 \pagestyle{fancy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\vspace*{-\fill}
 \begin{abstract}
-Your abstract. Max 1 page.
+Semantic entailment, the question of whether a hypothesis $h$, can be inferred from a text $t$, is a core part of the field of Natural Language Processing (NLP), and one that is key to many important tasks including ``QA [question answering], IR [information retrieval], text summarization, machine translation, information extraction, and paraphrasing.'' \cite{PARAMASIVAM20229644} 
+\newline \par
+Semantic entailment is also a fundamental task for large language models (LLMs), on which many people are beginning to rely on for knowledge on a daily basis, thus becoming an ever more integral part of society. It is evident that for LLMs to provide reliable, robust answers to questions and meet the expectations of users, an ability to accurately understand questions of semantic entailment is crucial. Yet, given the fact that LLMs are often ``trained on text alone, without additional grounding,'' \cite{merrill-etal-2022-entailment} where training objectives focus on predicting missing words, many argue that this ``language modelling task, because it only uses form as training data, cannot in principle lead to learning of meaning.'' \cite{bender-koller-2020-climbing} \newline \par
+In this thesis, we seek to bridge this gap and improve the performance and reliability of LLMs through imbuing them with the concept of semantic entailment during their training. We apply highly novel approaches for understanding semantic entailment through Topological Data Analysis (TDA) to study the topology of language, to develop a new metric that can robustly measure entailment, based theoretically on the concepts of entailment cones in hyperbolic geometric space. Subsequently, we mould the new entailment metric into a differentiable function that we inject as a regularizer into the training process of an LLM; where an additional optimization goal during the LLM's training is to maintain high entailment scores. We test compare our `entailment-enhanced' LLM against various SOTA-models on core entailment challenges and demonstrate that our method results in an improvement of at least XX\% F1-score compared to the next best model, across all datasets. 
+
+
 
 \end{abstract}
 
-\cleardoublepage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section*{Acknowledgments}
 Comment this out if not needed.
 
@@ -52,9 +58,8 @@ Comment this out if not needed.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \section{Motivation of the Thesis}
-\section{Project Objectives and Aims}
 \section{Project Contributions}
-\section{Report Outline}
+\section{Report Structure}
 
 \begin{figure}[tb]
 \centering
@@ -69,11 +74,24 @@ Figure~\ref{fig:logo} is an example of a figure.
 \chapter{Background and Literature Review}
 Introduction / Explanation of the section.
 \section{Semantic Entailment}
-subsections as necessary, e.g. for different types
+\textbf{subsections as necessary, e.g. for different types}
+\\
+\\
+Common approaches developed to solve challenges related to semantic entailment, such as those posed in the PASCAL \cite{dagan2006} or Stanford Natural Language Inference (SNLI) \cite{bowman2015} datasets, typically fall into one or several of the following categories \cite{PARAMASIVAM20229644}:
+\begin{itemize}
+    \item Lexical approaches, that focus on the linguistic information of input surface strings, without considering syntactic or semantic properties
+    \item Semantic approaches, which consider the meaning of the text in broader context to evaluate entailment, as opposed to only considering the input surface strings as in the lexical approach
+    \item Logical approaches, where a logical representation language is used to determine entailment
+    \item AI approaches, where entailment models are built to recognize entailment, with classifiers used to determine if a text-hypothesis pair of inputs results in entailment 
+\end{itemize}
+
+
 \section{Visual Entailment}
 \section{Topology of Language}
+Theoretical approaches followed by  practical?
+\subsection{Fractal Geometry}
 \subsection{Persistent Homology}
-\subsection{DIPPER}
+\subsection{MAPPER}
 \subsection{Intrinsic Dimensionality}
 \subsection{Sheaf Theory}
 
@@ -85,12 +103,13 @@ Chapter for Background Interim Report only, for second marker feedback
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Contribution, Experimental Setup and Method}
+\chapter{Approach, 
+Experimental Setup and Method}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Experimental Results and Discussion}
-The results are very interesting in Jones 2019\cite{jones2019}.
+The results are very interesting in Jones 2019.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusion}
