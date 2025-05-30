@@ -87,19 +87,16 @@
 
 
 %--- chapter heading
-
 \def\@makechapterhead#1{%
-  \vspace*{10\p@}%
+  \vspace{10\p@}%
   {\parindent \z@ \raggedright \sffamily
     \interlinepenalty\@M
     \Huge\bfseries \thechapter \space\space #1\par\nobreak
     \vskip 30\p@
   }}
-
 %--- chapter heading
-
 \def\@makechapterhead#1{%
-  \vspace*{10\p@}%
+  \vspace{10\p@}%
   {\parindent \z@ \raggedright \sffamily
         %{\Large \MakeUppercase{\@chapapp} \space \thechapter}
         %\\
@@ -110,7 +107,6 @@
     \Huge\bfseries \thechapter \space\space #1\par\nobreak
     \vskip 30\p@
   }}
-
 %---chapter heading for \chapter*  
 \def\@makeschapterhead#1{%
   \vspace*{10\p@}%
@@ -119,5 +115,19 @@
     \interlinepenalty\@M
     \Huge \bfseries  #1\par\nobreak
     \vskip 30\p@
-  }}	
+  }}    
 \allowdisplaybreaks
+
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\huge\bfseries}{\thechapter\space\space}{0pt}{}
+\titlespacing*{\chapter}{0pt}{0pt}{10pt}
+
+\makeatletter
+\renewcommand\chapter{\clearpage
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\makeatother

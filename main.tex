@@ -58,7 +58,58 @@ Comment this out if not needed.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \section{Motivation of the Thesis}
+Language lies at the heart of the upsurge in Artifical Intelligence over the last 10 years. The arrival of Large Language Models (LLMs) like ChatGPT who can almost flawlessly reproduce language, discourse on any subject, and answer even the most complex of questions with relative assuredness has been transformative across industry and academia alike. Indeed, the prowess with which such LLMs have seemingly mastered language has led, particularly amongst mainstream media, to comparisons with ``god-like'' technology. \cite{hogarthFT} Investigations into the nature of language through the lens of topology, and the ability for LLMs to truly master language, form the core motivation for this thesis, which is discussed in the following section. 
+
+
+\subsection{What is the meaning of language?}
+
+Whilst this is a Computer Science thesis, and one that we believe will lead to significant novel discoveries that will materially improve the performance of LLMs in semantic entailment tasks, the fundamental motivation behind the topic is the same question that motivated my undergraduate dissertation in Modern and Medieval Languages; namely - what does it mean to \textbf{\textit{truly}} speak a language. \newline \par
+
+I began that dissertation with a quote from Bertolt Brecht during his exile in the United States, that I believe is equally relevant for this thesis:
+\begin{quote}
+    I haven't the slightest hope of ever learning colloquial American English. It's certainly not for a lack of trying [...] It's something else that evades me. [...] In discussions, I'm not able to say what I want, just what I can. [...] One could assume that this confusing state would be temporary [...], but that is sadly wishful thinking. It's not that I'm unable to grasp the vocabulary, nor the syntactical or grammatical knowledge. Rather, what I cannot grasp is a certain linguistic \textit{Habitus}, which I simply do not see any possibility of learning.\cite{brecht}
+\end{quote}
+
+Brecht's experience of fluency of alienation from the linguistic \textit{habitus} of a foreign language, no matter how fluently it is spoken, is one that would resonate with any linguist. Yet, we ask and, indeed, expect LLMs to inhabit the linguistic \textit{habitus} of all languages at the same time with expert accuracy. \newline \par
+
+Beyond an expectation of fluency and familiarity with our language, a core expectation of LLMs is their ability to understand and answer our questions in reasonable and reliable manners. To fulfill these expectations an understanding of `meaning', and hence of semantic entailment is key; but this is a task we humans can often falter with, even with plentiful context. Given the premise ``All humans are created equal'' with contextual knowledge of the origin of the premise arising from the US Declaration of Independence, multiple equally valid interpretations of the hypothesis are possible ``Every person has the same inherent value'':
+\begin{enumerate}
+    \item \textit{Contradiction}: "Humans" in 1776 excluded women, enslaved people, Indigenous peoples.
+    \item \textit{Entailment}: Despite historical limitations, the principle of the hypothesis is universal.
+\end{enumerate}
+
+The inherently uncertain, fallible and \textit{individual} nature of language that these examples have attempted to exemplify is one best summarised by Jacques Derrida \cite{derrida1, derrida2, derrida3}, who maintains that the meaning of all language, whether speech or writing, is created through unstable, spatial and temporal relations between signifiers, that he terms différance. Derrida asserts that every language-speaker is caught up in the matrix of differences through which language functions. \newline \par
+
+A core driver of this thesis then, is to investigate whether - on the contrary to the philosophical arguments given above - we can use concepts from the field of Topological Data Analysis to find an objective mathematical representation of language in which the concept of entailment can be robustly defined, modelled, and then used to improve LLM performance.
+
+
+\subsection{The importance of understanding language in the age of Artificial Intelligence}
+Why bother with all this...
+Stats on rise of GPTs, BERTs and users of AIs in last X years... predictions only going to grow... so the safety and trustworthiness of the repsonses provided is of essential importance. 
+
+We ask GPTs to produce language, and are becoming ever reliant and trusting on their answers - without knowing how they work atm. 
+
+Essentially a black box... highly dangerous given the fallibility of language 
+Include diagrams of French and English topologically? Mention differences in manifolds/intrinsic dimensionality <-- to be tackled in greater detail in chapter 2
+
+These issues provide the underlying motivation of the thesis, that guides its key objectives and aims.
+
+\section{Research Aim And Objectives}
+
+\begin{itemize}
+    \item Explore topology of language and mathematical relationships in topological space through which entailment can be determined
+    \item Connect dots between domains that have not been heavily explored
+    \item Develop a robust mathematical expression for entailment, that can produce reliable and accurate entailment scores 
+    \item Translate visual entailment tasks into topological expressions, so that they can also be measured via the entailment metric - enabling a single expression for multi-modal entailment training 
+\end{itemize}
+
+
 \section{Project Contributions}
+\begin{itemize}
+    \item New entailment metric derived from topological data analysis
+    \item Use of entailment metric as a regularizer in LLM training to improve performance on classic entailment datasets
+    \item Across semantic and visual entailment, enabling multi-modal entailment
+\end{itemize}
 \section{Report Structure}
 
 \begin{figure}[tb]
