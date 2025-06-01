@@ -78,21 +78,27 @@ Beyond an expectation of fluency and familiarity with our language, a core expec
     \item \textit{Entailment}: Despite historical limitations, the principle of the hypothesis is universal.
 \end{enumerate}
 
-The inherently uncertain, fallible and \textit{individual} nature of language that these examples have attempted to exemplify is one best summarised by Jacques Derrida \cite{derrida1, derrida2, derrida3}, who maintains that the meaning of all language, whether speech or writing, is created through unstable, spatial and temporal relations between signifiers, that he terms différance. Derrida asserts that every language-speaker is caught up in the matrix of differences through which language functions. \newline \par
+The inherently uncertain, fallible and \textit{individual} nature of language that these examples have attempted to exemplify is one best summarised by Jacques Derrida \cite{derrida1, derrida2, derrida3}, who maintains that the meaning of all language, whether speech or writing, is created through unstable, spatial and temporal relations between signifiers, that he terms différance - with every language-speaker caught up in the matrix of differences through which language functions. \newline \par
 
-A core driver of this thesis then, is to investigate whether - on the contrary to the philosophical arguments given above - we can use concepts from the field of Topological Data Analysis to find an objective mathematical representation of language in which the concept of entailment can be robustly defined, modelled, and then used to improve LLM performance.
+A core driver of this thesis then, is to investigate whether - contrary to the philosophical arguments given above - we can use concepts from the field of Topological Data Analysis to find an objective, \textit{universal} mathematical representation of language in which the concept of entailment can be robustly defined, modelled, and then used to improve LLM performance.
 
 
 \subsection{The importance of understanding language in the age of Artificial Intelligence}
-Why bother with all this...
-Stats on rise of GPTs, BERTs and users of AIs in last X years... predictions only going to grow... so the safety and trustworthiness of the repsonses provided is of essential importance. 
+The questions raised in the previous section are of far greater practical significance than the intellectual curiosities that they may appear to be on the surface. Since the advent of LLMs only a few years ago, society has grown rapidly reliant on them - ChatGPT alone is forecast to have 1 billion users, almost 10\% of the world's population, by the end of 2025 at the latest. \cite{forbesChatGPT} \newline \par
 
-We ask GPTs to produce language, and are becoming ever reliant and trusting on their answers - without knowing how they work atm. 
+Given this trajectory towards dependency on the outputs of LLMs, where such tools are consulted in the making of critical personal, business, or even political decisions, the safety and trustworthiness of LLM responses provided is of essential importance. Yet this is precisely where we have the least understanding and control of LLMs themselves. As explained by Fitz et al. (2024) \cite{fitz2024hiddenholestopologicalaspects}, ``as of now it is still a mystery why certain behaviours emerge in large language models, and little is understood about the structure of their representation manifolds.'' Many elements of how LLMs function still remain a `black box'. We interact with them at the level of their textual output, in which ``the natural topological structure of [the] language embeddings, which define the ``thoughts'' of the system, is lost'' \cite{fitz2024hiddenholestopologicalaspects}. For example, Figure 1.1, taken from Fitz (2022), \cite{fitz22a} shows a graph projection of vector space embeddings of word tokens from French and English. The differences in shape are striking, but the reasons for these differences are still unclear. \newline
 
-Essentially a black box... highly dangerous given the fallibility of language 
-Include diagrams of French and English topologically? Mention differences in manifolds/intrinsic dimensionality <-- to be tackled in greater detail in chapter 2
+\begin{figure}[tb]
+\centering
+\includegraphics[width = 1\hsize]{./figures/graph_projection_fitz}
+\caption{A graph projection of vector space embeddings of word tokens derived from corpora of French (left) and English (right).}
+\label{fig:logo}
+\end{figure}
 
-These issues provide the underlying motivation of the thesis, that guides its key objectives and aims.
+\par
+This thesis hence seeks to conduct further investigations into the topology and geometry of the vector embeddings of language in LLMs. Such investigations are of manifold importance: the more we understand about the topology and geometry of LLMs, the better we can understand why they exhibit certain behaviours, and how we can improve their efficiency and parametrisation, potentially enabling smaller, more compressed models \cite{fitz2024hiddenholestopologicalaspects}. \newline \par
+
+We, however, will focus specifically on understanding how relationships of semantic entailment are projected into the vector spaces that allow LLMs to `think'. We aim to develop an entailment metric that, when implemented as a regularizer in LLM training, will lead to better LLM performance on semantic entailment tasks. In doing so, we may also uncover potential answers to some of the more philosophical questions posed in the previous section, relating to what it means to speak a language, for humans and for AI. 
 
 \section{Research Aim And Objectives}
 
@@ -112,14 +118,6 @@ These issues provide the underlying motivation of the thesis, that guides its ke
 \end{itemize}
 \section{Report Structure}
 
-\begin{figure}[tb]
-\centering
-\includegraphics[width = 0.4\hsize]{./figures/imperial}
-\caption{Imperial College Logo. It's nice blue, and the font is quite stylish. But you can choose a different one if you don't like it.}
-\label{fig:logo}
-\end{figure}
-
-Figure~\ref{fig:logo} is an example of a figure. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Background and Literature Review}
@@ -150,6 +148,7 @@ Theoretical approaches followed by  practical?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Project Plan}
 Chapter for Background Interim Report only, for second marker feedback
+
 
 
 
