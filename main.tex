@@ -31,7 +31,7 @@
 Semantic entailment, the question of whether a hypothesis $h$, can be inferred from a text $t$, is a core part of the field of Natural Language Processing (NLP), and one that is key to many important tasks including ``QA [question answering], IR [information retrieval], text summarization, machine translation, information extraction, and paraphrasing.'' \cite{PARAMASIVAM20229644} 
 \newline \par
 Semantic entailment is also a fundamental task for large language models (LLMs), on which many people are beginning to rely on for knowledge on a daily basis, thus becoming an ever more integral part of society. It is evident that for LLMs to provide reliable, robust answers to questions and meet the expectations of users, an ability to accurately understand questions of semantic entailment is crucial. Yet, given the fact that LLMs are often ``trained on text alone, without additional grounding,'' \cite{merrill-etal-2022-entailment} where training objectives focus on predicting missing words, many argue that this ``language modelling task, because it only uses form as training data, cannot in principle lead to learning of meaning.'' \cite{bender-koller-2020-climbing} \newline \par
-In this thesis, we seek to bridge this gap and improve the performance and reliability of LLMs through imbuing them with the concept of semantic entailment during their training. We apply highly novel approaches for understanding semantic entailment through Topological Data Analysis (TDA) to study the topology of language, to develop a new metric that can robustly measure entailment, based theoretically on the concepts of entailment cones in hyperbolic geometric space. Subsequently, we mould the new entailment metric into a differentiable function that we inject as a regularizer into the training process of an LLM; where an additional optimization goal during the LLM's training is to maintain high entailment scores. We test compare our `entailment-enhanced' LLM against various SOTA-models on core entailment challenges and demonstrate that our method results in an improvement of at least XX\% F1-score compared to the next best model, across all datasets. 
+In this thesis, we seek to bridge this gap and improve the performance and reliability of LLMs through imbuing them with the concept of semantic entailment during their training. We apply highly novel approaches for understanding semantic entailment through Topological Data Analysis (TDA) to study the topology of language, to develop a new metric that can robustly measure entailment, based theoretically on the concepts of entailment cones in hyperbolic geometric space. Subsequently, we mould the new entailment metric into a differentiable function that we inject as a regularizer into the training process of an LLM; where an additional optimization goal during the LLM's training is to maintain high entailment scores. We compare our `entailment-enhanced' LLM against various SOTA-models on core entailment challenges and demonstrate that our method results in an improvement of at least XX\% F1-score compared to the next best model, across all datasets. 
 
 
 
@@ -100,23 +100,27 @@ This thesis hence seeks to conduct further investigations into the topology and 
 
 We, however, will focus specifically on understanding how relationships of semantic entailment are projected into the vector spaces that allow LLMs to `think'. We aim to develop an entailment metric that, when implemented as a regularizer in LLM training, will lead to better LLM performance on semantic entailment tasks. In doing so, we may also uncover potential answers to some of the more philosophical questions posed in the previous section, relating to what it means to speak a language, for humans and for AI. 
 
-\section{Research Aim And Objectives}
+\section{Research Aim And Contributions}
 
-\begin{itemize}
-    \item Explore topology of language and mathematical relationships in topological space through which entailment can be determined
-    \item Connect dots between domains that have not been heavily explored
-    \item Develop a robust mathematical expression for entailment, that can produce reliable and accurate entailment scores 
-    \item Translate visual entailment tasks into topological expressions, so that they can also be measured via the entailment metric - enabling a single expression for multi-modal entailment training 
-\end{itemize}
+Per the above motivations, the aim of this project is to understand the topology of language in LLM vector spaces and derive therefrom a robust expression that characterises the notion of semantic entailment, which, when used as a regularizer in LLM training, can improve performance on semantic and visual entailment tasks.  \newline \par
+
+To achieve this aim, we make the following contributions: 
+
+\begin{enumerate}
+    \item \textbf{We implement topological data analysis (TDA) techniques (persistent homology, MAPPER) to investigate topological relationships between entailed, contradictory, and neutral premise-hypothesis pairs.} In Chapter X, we undertake this for semantic entailment, using the Stanford Natural Language Inference (SNLI) dataset. In Chapter (X+1), we replicate this task for a visual entailment dataset (SNLI-VE), where premises are given in the form of images rather than phrases.
+    \item \textbf{We develop a robust mathematical expression for entailment using concepts from hyperbolic geometry - namely hyperbolic entailment cones}, from which we derive an entailment metric that can produce accurate entailment scores across semantic and visual entailment challenges; and be used to compare existing LLM performances on such tasks
+    \item \textbf{We train an LLM with an `entailment regularizer'}, based on the entailment expression in 2., and demonstrate that it has superior performance on semantic and visual entailment tasks vs. SOTA benchmarks 
+    \item \textbf{We reason briefly on the philosophical and linguistic implications of our findings}, including what our findings imply about linguistic theories such as Chomsky's universal grammar. 
+\end{enumerate}
 
 
-\section{Project Contributions}
-\begin{itemize}
-    \item New entailment metric derived from topological data analysis
-    \item Use of entailment metric as a regularizer in LLM training to improve performance on classic entailment datasets
-    \item Across semantic and visual entailment, enabling multi-modal entailment
-\end{itemize}
 \section{Report Structure}
+Chapter 2 provides an overview of the relevant theoretical and practical background to this work. This includes an outline of the major existing approaches to both semantic (Section 2.1) and visual (Section 2.2) entailment within the fields of NLP and computer vision, respectively. We also provide a brief grounding in key concepts from Topological Data Analysis (TDA) for the unfamiliar reader (Section 2.3), and highlight the handful of existing  applications of TDA to language and LLMs, upon which this thesis builds. \par   \quad In Chapter 3, we develop the core theoretical element of this thesis, introducing the topological mapping of premise-hypothesis pairs, and the development of a metric to measure semantic entailment. \par 
+\quad Chapter 4 presents experimental results displaying the robustness of the entailment metric across both semantic and visual entailment datasets, and evaluates the performance of SOTA LLMs to detect entailment, compared to our metric. \par
+\quad Chapter 5 outlines the approach taken to extend our expression for entailment into a differentiable function that we implement as a regularizer in the training of an LLM, and demonstrates, through experiments, its superior performance against both SOTA LLMs, and other benchmark methods used in entailment challenges. \par
+\quad Finally, Chapter 6 summarizes the contributions of this thesis, discusses potential avenues for future work suggested by our findings, and attempts to provide an answer to some of the more philosophical and linguistic questions raised by this research before concluding the thesis.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
