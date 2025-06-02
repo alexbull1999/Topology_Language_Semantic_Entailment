@@ -93,7 +93,7 @@ Given this trajectory towards dependency on the outputs of LLMs, where such tool
 \centering
 \includegraphics[width = 1\hsize]{./figures/graph_projection_fitz}
 \caption{A graph projection of vector space embeddings of word tokens derived from corpora of French (left) and English (right).}
-\label{fig:logo}
+\label{fig:EmbeddingsFrenchEnglish}
 \end{figure}
 
 \par
@@ -174,14 +174,16 @@ Jennings et al. \cite{leibnizianAnalysis} formulate a novel approach to entailme
 
 With this background, we can summarize the key insights outlined by Jennings et al. \cite{leibnizianAnalysis}, and their relevance for a topological investigation of semantic entailment in this thesis. We refer the interested reader to \cite{leibnizianAnalysis} for the mathematical proofs of these insights. \newline \par \quad 
 1. Since `every sentence has a finite analysis into its conjunctive normal form [...], semantically, then, every sentence of that language can be represented as a simple hypergraph, $H$, on the powerset of a universe of states'. \newline \par
-This is particularly relevant in the context of this thesis' topological approach, since hypergraph representations can naturally embed logical relationships into a geometric form that we can apply TDA methods to. \newline \par \quad
-2. An entailment relationship $\alpha \models \beta$, corresponds to a subsumption relationship between two hypergraphs on $\wp(U)$, such that $H_{\alpha} \sqsubseteq H_{\beta}$. The subsumption relationship is defined as true if: 
+This is particularly relevant in the context of this thesis' topological approach, since hypergraph representations can naturally embed logical relationships into a geometric form. \newline \par \quad
+2. An entailment relationship $\alpha \models \beta$, corresponds to a subsumption relationship between two hypergraphs on $\wp(U)$, such that $H_{\alpha} \sqsubseteq H_{\beta}$. The subsumption relationship is defined as true if \cite{leibnizianAnalysis}: 
 $$
-\forall H, H' \in \mathcal{H},\; H \sqsubseteq H'
-\iff 
-\forall E \in H,\; \exists E' \in H' \text{ such that } 
-\forall e \in E,\; \exists e' \in E' \text{ such that } e \leq e'
-$$
+\forall H, H' \in \mathbb{H},\; H \sqsubseteq H',
+\text{ if and only if }
+\forall E' \in H',\; \exists E \in H \text{ such that } 
+\forall e \in E,\; \exists e' \in E' : e \leq e'  
+$$ 
+
+where $\mathbb{H}$ is a set of \textit{simple} hypergraphs such that $\mathbb{H} \subseteq \wp\wp(U)$. \newline \par
 
 Figure 2.1 demonstrates a trivial example of this, where a premise $(p \lor q \lor r) \land (\neg s \lor q) $  is modelled by the hypergraph $H_A$, whilst a conclusion $q \lor r$ is modelled by hypergraph $H_B$.
 
@@ -189,20 +191,30 @@ Figure 2.1 demonstrates a trivial example of this, where a premise $(p \lor q \l
 \centering
 \includegraphics[width = 1\hsize]{./figures/HypergraphIntro.drawio.png}
 \caption{A hypergraph representation of $(p \lor q \lor r) \land (\neg s \lor q)$ in $H_A$, and $q \lor r$ in $H_B$}
-\label{fig:logo}
+\label{fig:Hypergraphs}
 \end{figure}
 
-The mathematical 
+Following the definition given above, for the conclusion $H_B$ to be entailed by the premise $H_A$, every hyperedge of $H_B$ (in this case just $e_{b1}$), must be `underwritten' by at least one hyperedge in $H_A$. We can clearly see this is the not the case, and the conclusion is not entailed by the premise, since $H_A$ has no hyperedge containing just $\{q, r\}$. \newline
 
-- Why importan <-- relevant for topological approach because mebeds logical relationships into geometric structure...
+The entailment relationship described above is also highly relevant to this thesis, as it provides a theoretical foundation according to which we can look for entailment relationships in our topological investigations of language. \newline \par
 
-Entailment corresponds to subsumption -- give example
+\quad 3. The definition of entailment relationships via subsumption leads to the emergence of an algebraic lattice structure; namely that $\langle\mathbb{H}, \sqsubseteq\rangle$ is a lattice \cite{leibnizianAnalysis}. The connection between entailment relations and distributive lattices is further developed by Cederquist and Coquand \cite{Cederquist}, who establish a direct bridge between the abstract logical system of entailment relations and topological spaces, through the use of distributive and normal lattices. This lattice structure has the following important tenets:
+\begin{enumerate}
+    \item \textbf{Partial Order}: The subsumption relation creates a partial order between the hypergraphs involved. For example, if $H_A \sqsubseteq H_B$, then we can colloquially think of $H_A$ as `containing more information' or being `higher' in the lattice than $H_B$
+    \item \textbf{Lattice Operations}: Given any two hypergraphs $H_A$ and $H_B$, we can state that their \textit{join} $(H_A \lor H_B)$ is the hypergraph representing the weakest formula that \textbf{both entail}; whilst their \textit{meet} $(H_A \land H_B)$ is the hypergraph representing the strongest formula that \textbf{entails both}
+    \item \textbf{De-Morgan Structure For Negation}: Logical negation can be accomplished using the blocker function $\tau$, which allows the following logical rules to hold true:
+    \begin{itemize}
+        \item $\tau(\tau(H_A)) = H_A$, i.e. double negation
+        \item $H_A \sqsubseteq H_B \iff \tau(H_B) \sqsubseteq \tau(H_A)$, i.e. order reversal under negation
+    \end{itemize}
+\end{enumerate}
 
-Subsumption forms a De-Morgan Lattice structure <-- move onto lattice-theoretic properties... 
+These findings are key for several reasons. Firstly, `the semantic idiom that hypergraph-theory affords reveals a hierarchy of lattices capable of representing entailments of every finite degree' \cite{leibnizianAnalysis}. Secondly, lattices themselves provide a bridge from discrete logical topographic structures (i.e. hypergraphs), to a continuous geometric space, where notions of `height' (how general vs. how specific a formula is), `distance' (how many steps in the lattice separate two formulae), and `directions' (moving up the lattice, as generalization, and moving down, as specialization) are all present. Combined, these two principles lay the theoretical foundation for this thesis' hypothesis that relationships of semantic entailment should be able to be detected and measured through topological analysis. \newline \par
+
+The lattice structure should, in theory, enable the logical relationships of entailment to be preserved when we move from semantics in words and phrases across to their vector space embeddings in LLMs; while the partial order features of lattices capture the asymmetry of entailment, where $A \rightarrow B \neq B \rightarrow A$. Finally, we hypothesise - and aim to prove experimentally in the following chapters - that the height, distance and directional metrics of lattices can be analysed through topological data analysis, to measure and analyse semantic entailment relationships.
 
 
-\subsection{}
-
+\subsection{From Logical to Semantic Entailment}
 
 
 
