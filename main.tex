@@ -158,6 +158,47 @@ This relationship between semantic entailment and logical entailment is importan
 
 \subsection{Entailment as a Subsumption Relationship of Hypergraphs}
 
+Jennings et al. \cite{leibnizianAnalysis} formulate a novel approach to entailment, using Leibnizian analysis to demonstrate how logic entailment can be demonstrated through subsumption relationships between hypergraphs. Before discussing their work and its relevance to this thesis, we first outline several key concepts for the unfamiliar reader: \newline
+\begin{itemize}
+    \item \textbf{Possible Worlds}. In logic, a possible world represents one possibility of truth values. For example, if we have a simple logical premise represented by literals $p$ (meaning, say, that it is raining), and $q$ (meaning, say, that the ground is wet), there are four possible worlds:
+    \begin{enumerate}
+        \item $w_1$: both p and q are true
+        \item $w_2$: p is true, q is false
+        \item $w_3$: p is false, q is true
+        \item $w_4$: both p and q are false
+    \end{enumerate}
+    \item \textbf{Powersets}. The powerset of possible worlds, denoted by Jennings et al. as $\wp(U)$ \cite{leibnizianAnalysis}, is the set of all possible sets, i.e. representing the universe in a full propositional model. The subset $\{w_1, w_2\}$ within $\wp(U)$ would, in this example, represent all worlds in which ``it is raining'' is true. 
+    \item \textbf{Hypergraphs}. Borrowing the defintion directly from Jennings et al. \cite{leibnizianAnalysis}, ``a hypergraph $H$ is a pair $H=(X, E)$ where $X$ is a set of elements, called nodes or vertices, and $E$ is a non-empty set of non-empty subsets of $X$, each of which is called a (hyper-)edge. [...] Conventionally, we can write $H$ as a collection of edges, i.e. $H=\{E_1, E_2, ..., E_n\}$, where $\forall i, 1 \leq i \leq n, E_i \in X$. 
+    \item \textbf{Atomic Constituents}. An atomic constituent is the simplest, irreducible form of a logical expression - i.e., a literal in propositional logic. By this definition CNF can be viewed as a disjunction of atoms.
+\end{itemize}
+
+With this background, we can summarize the key insights outlined by Jennings et al. \cite{leibnizianAnalysis}, and their relevance for a topological investigation of semantic entailment in this thesis. We refer the interested reader to \cite{leibnizianAnalysis} for the mathematical proofs of these insights. \newline \par \quad 
+1. Since `every sentence has a finite analysis into its conjunctive normal form [...], semantically, then, every sentence of that language can be represented as a simple hypergraph, $H$, on the powerset of a universe of states'. \newline \par
+This is particularly relevant in the context of this thesis' topological approach, since hypergraph representations can naturally embed logical relationships into a geometric form that we can apply TDA methods to. \newline \par \quad
+2. An entailment relationship $\alpha \models \beta$, corresponds to a subsumption relationship between two hypergraphs on $\wp(U)$, such that $H_{\alpha} \sqsubseteq H_{\beta}$. The subsumption relationship is defined as true if: 
+$$
+\forall H, H' \in \mathcal{H},\; H \sqsubseteq H'
+\iff 
+\forall E \in H,\; \exists E' \in H' \text{ such that } 
+\forall e \in E,\; \exists e' \in E' \text{ such that } e \leq e'
+$$
+
+Figure 2.1 demonstrates a trivial example of this, where a premise $(p \lor q \lor r) \land (\neg s \lor q) $  is modelled by the hypergraph $H_A$, whilst a conclusion $q \lor r$ is modelled by hypergraph $H_B$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 1\hsize]{./figures/HypergraphIntro.drawio.png}
+\caption{A hypergraph representation of $(p \lor q \lor r) \land (\neg s \lor q)$ in $H_A$, and $q \lor r$ in $H_B$}
+\label{fig:logo}
+\end{figure}
+
+The mathematical 
+
+- Why importan <-- relevant for topological approach because mebeds logical relationships into geometric structure...
+
+Entailment corresponds to subsumption -- give example
+
+Subsumption forms a De-Morgan Lattice structure <-- move onto lattice-theoretic properties... 
 
 
 \subsection{}
