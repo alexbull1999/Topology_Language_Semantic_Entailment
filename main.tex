@@ -31,7 +31,7 @@
 Semantic entailment, the question of whether a hypothesis $h$, can be inferred from a text $t$, is a core part of the field of Natural Language Processing (NLP), and one that is key to many important tasks including ``QA [question answering], IR [information retrieval], text summarization, machine translation, information extraction, and paraphrasing.'' \cite{PARAMASIVAM20229644} 
 \newline \par
 Semantic entailment is also a fundamental task for large language models (LLMs), on which many people are beginning to rely on for knowledge on a daily basis, thus becoming an ever more integral part of society. It is evident that for LLMs to provide reliable, robust answers to questions and meet the expectations of users, an ability to accurately understand questions of semantic entailment is crucial. Yet, given the fact that LLMs are often ``trained on text alone, without additional grounding,'' \cite{merrill-etal-2022-entailment} where training objectives focus on predicting missing words, many argue that this ``language modelling task, because it only uses form as training data, cannot in principle lead to learning of meaning.'' \cite{bender-koller-2020-climbing} \newline \par
-In this thesis, we seek to bridge this gap and improve the performance and reliability of LLMs through imbuing them with the concept of semantic entailment during their training. We apply highly novel approaches for understanding semantic entailment through Topological Data Analysis (TDA) to study the topology of language, to develop a new metric that can robustly measure entailment, based theoretically on the concepts of entailment cones in hyperbolic geometric space. Subsequently, we mould the new entailment metric into a differentiable function that we inject as a regularizer into the training process of an LLM; where an additional optimization goal during the LLM's training is to maintain high entailment scores. We compare our `entailment-enhanced' LLM against various SOTA-models on core entailment challenges and demonstrate that our method results in an improvement of at least XX\% F1-score compared to the next best model, across all datasets. 
+In this thesis, we seek to bridge this gap and improve the performance and reliability of LLMs by imbuing them with the concept of semantic entailment during their training. We apply highly novel approaches for understanding semantic entailment through Topological Data Analysis (TDA) to study the topology of language, to develop a new metric that can robustly measure entailment, based theoretically on the concepts of entailment cones in hyperbolic geometric space. Subsequently, we mould the new entailment metric into a differentiable function that we inject as a regularizer into the training process of an LLM; where an additional optimization goal during the LLM's training is to maintain high entailment scores. We compare our `entailment-enhanced' LLM against various SOTA-models on core entailment challenges and demonstrate that our method results in an improvement of at least XX\% F1-score compared to the next best model, across all datasets. 
 
 
 
@@ -53,7 +53,7 @@ Comment this out if not needed.
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \fancyhead[LE,RO]{\slshape \rightmark}
-\fancyhead[LO,RE]{\slshape \leftmark}
+\fancyhead[LO,RE]{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
@@ -72,15 +72,16 @@ I began that dissertation with a quote from Bertolt Brecht during his exile in t
 
 Brecht's experience of fluency of alienation from the linguistic \textit{habitus} of a foreign language, no matter how fluently it is spoken, is one that would resonate with any linguist. Yet, we ask and, indeed, expect LLMs to inhabit the linguistic \textit{habitus} of all languages at the same time with expert accuracy. \newline \par
 
-Beyond an expectation of fluency and familiarity with our language, a core expectation of LLMs is their ability to understand and answer our questions in reasonable and reliable manners. To fulfill these expectations an understanding of `meaning', and hence of semantic entailment is key; but this is a task we humans can often falter with, even with plentiful context. Given the premise ``All humans are created equal'' with contextual knowledge of the origin of the premise arising from the US Declaration of Independence, multiple equally valid interpretations of the hypothesis are possible ``Every person has the same inherent value'':
+In addition to an expectation of fluency and familiarity with our language, we also expect LLMs to understand and answer our questions in the same reasonable and reliable manner as we would expect from a subject matter expert. To fulfil these expectations, the ability for LLMs to understand semantic `meaning' and entailment is key. This is, however, not the case today. LLMs are commonly ``trained on text alone, without additional grounding''\cite{merrill-etal-2022-entailment}, with the missing-word prediction training tasks unable ``in principle [to] lead to learning of meaning.''\cite{bender-koller-2020-climbing} \newline \par 
+While Bender et al. cast doubt on the ability of LLMs to truly understanding meaning, and hence to robustly evaluate more challenging semantic entailment tasks, these are also something that humans can often falter with. For example, given the premise ``All men are created equal'' with contextual knowledge of its origin in the US Declaration of Independence, multiple `valid' interpretations of the hypothesis ``Every person has the same inherent value'' are possible, each with very different ramifications:
 \begin{enumerate}
-    \item \textit{Contradiction}: "Humans" in 1776 excluded women, enslaved people, Indigenous peoples.
-    \item \textit{Entailment}: Despite historical limitations, the principle of the hypothesis is universal.
+    \item \textit{Contradiction}: `Men' in 1776 deliberately excluded women, enslaved people, Indigenous peoples.
+    \item \textit{Entailment}: Despite historical limitations, the principle of the hypothesis is universal and should be understood as such.
 \end{enumerate}
 
 The inherently uncertain, fallible and \textit{individual} nature of language that these examples have attempted to exemplify is one best summarised by Jacques Derrida \cite{derrida1, derrida2, derrida3}, who maintains that the meaning of all language, whether speech or writing, is created through unstable, spatial and temporal relations between signifiers, that he terms différance - with every language-speaker caught up in the matrix of differences through which language functions. \newline \par
 
-A core driver of this thesis then, is to investigate whether - contrary to the philosophical arguments given above - we can use concepts from the field of Topological Data Analysis to find an objective, \textit{universal} mathematical representation of language in which the concept of entailment can be robustly defined, modelled, and then used to improve LLM performance.
+A core driver of this thesis then, is to investigate whether - contrary to the philosophical arguments given above - we can use concepts from the field of Topological Data Analysis to find an objective, \textit{universal} mathematical representation of language in which the concept of entailment can be robustly defined, modelled, and imbued into an LLM training regime, in order to improve its performance.
 
 
 \subsection{The importance of understanding language in the age of Artificial Intelligence}
@@ -102,7 +103,7 @@ We, however, will focus specifically on understanding how relationships of seman
 
 \section{Research Aim And Contributions}
 
-Per the above motivations, the aim of this project is to understand the topology of language in LLM vector spaces and derive therefrom a robust expression that characterises the notion of semantic entailment, which, when used as a regularizer in LLM training, can improve performance on semantic and visual entailment tasks.  \newline \par
+The aim of this project is to understand the topology of language in LLM vector spaces and derive therefrom a robust expression that characterises the notion of semantic entailment, which, when used as a regularizer in LLM training, can improve performance on semantic and visual entailment tasks.  \newline \par
 
 To achieve this aim, we make the following contributions: 
 
@@ -115,7 +116,7 @@ To achieve this aim, we make the following contributions:
 
 
 \section{Report Structure}
-Chapter 2 provides an overview of the relevant theoretical and practical background to this work. This includes an outline of the major existing approaches to both semantic (Section 2.1) and visual (Section 2.2) entailment within the fields of NLP and computer vision, respectively. We also provide a brief grounding in key concepts from Topological Data Analysis (TDA) for the unfamiliar reader (Section 2.3), and highlight the handful of existing  applications of TDA to language and LLMs, upon which this thesis builds. \par   \quad In Chapter 3, we develop the core theoretical element of this thesis, introducing the topological mapping of premise-hypothesis pairs, and the development of a metric to measure semantic entailment. \par 
+Chapter 2 provides an overview of the relevant theoretical and practical background to this work. This includes an outline of the logic and theory underpinning questions of entailment (Section 2.1), and a survey of major existing approaches to both semantic and visual entailment within the fields of NLP and computer vision, respectively (Section 2.2). We also provide a brief grounding in key concepts from Topological Data Analysis (TDA) and hyperbolic geometry for the unfamiliar reader (Section 2.3), and highlight the handful of existing  applications of TDA to language and LLMs, upon which this thesis builds. \par   \quad In Chapter 3, we develop the core theoretical element of this thesis, introducing the topological mapping of premise-hypothesis pairs, and the development of a metric to measure semantic entailment. \par 
 \quad Chapter 4 presents experimental results displaying the robustness of the entailment metric across both semantic and visual entailment datasets, and evaluates the performance of SOTA LLMs to detect entailment, compared to our metric. \par
 \quad Chapter 5 outlines the approach taken to extend our expression for entailment into a differentiable function that we implement as a regularizer in the training of an LLM, and demonstrates, through experiments, its superior performance against both SOTA LLMs, and other benchmark methods used in entailment challenges. \par
 \quad Finally, Chapter 6 summarizes the contributions of this thesis, discusses potential avenues for future work suggested by our findings, and attempts to provide an answer to some of the more philosophical and linguistic questions raised by this research before concluding the thesis.
@@ -124,12 +125,53 @@ Chapter 2 provides an overview of the relevant theoretical and practical backgro
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Background and Literature Review}
-Introduction / Explanation of the section.
-\section{Semantic Entailment}
-\textbf{subsections as necessary, e.g. for different types}
-\\
-\\
+\chapter{Background and Related Work}
+This chapter presents an overview of existing progress and key related works in the fields of semantic and visual entailment, before providing a minimum theoretical grounding in the primary Topological Data Analysis (TDA) and Hyperbolic Geometry methodologies that will be used throughout this thesis. \newline \par
+
+Section 2.1 focuses on logical representations of entailment tasks, which help to provide the theoretical framework for how we practically apply topological data analysis (TDA) methods in this thesis. \par \quad Section 2.2 introduces key practical datasets that have been used to experiment with semantic and visual entailment challenges in the NLP and Computer Vision communities respectively, alongside the metrics used, and varying approaches that have already been adopted.  \par \quad Finally, section 2.3 introduces two key Topological Data Analysis (TDA) methodologies - Persistent Homology and MAPPER - before discussing their relevance to language through exploring theoretical papers relating to the geometry of language. Section 2.3 closes by surveying existing practical applications of TDA in NLP, before briefly discussing the benefits of Euclidean vs. Hyperbolic Geometry in the context of semantic entailment - a question that is highly relevant for the practical approach we decide to adopt in the following chapters of this thesis. 
+
+\section{Logical Representations of Entailment}
+
+This thesis is an investigation of the Topology of Language for Semantic Entailment in the context of LLMs and, naturally, this was the focus of the introduction in Chapter 1. But to understand how semantic entailment can be captured through topological methods, we first need to examine its foundations in formal logic. Semantic entailment is, of course, fundamentally an exercise in logic. Natural language sentences can be broken down into their fundamental logical constituents and evaluated in Conjunctive Normal Form (CNF) through the language of propositional or predicate logic - and indeed this is one of the existing approaches to Semantic Entailment tasks that will be outlined in Section 2.2. As a simple example \cite{fSadri}, take the premises: 
+\begin{flushleft}
+\text{`If there are national elections, either the Tory party wins or the Labour party wins.'} \\
+\text{`If the unions do not support the Labour party then it does not win.'} \\
+\text{`There are national elections.'}
+
+\end{flushleft}
+
+\par and the hypothesis:
+\begin{flushleft}
+If the Tory party does not win then the unions
+support the Labour party?    
+\end{flushleft}
+
+Using `E' to stand for elections, `L' to stand for a Labour victory, `T' to stand for a Tory victory, and `U' to stand for unions supporting labour, we can easily remodel these natural language statements into CNF: \newline 
+\begin{align*}
+\text{Premise:} \quad & E \rightarrow L \lor T, \quad \lnot U \rightarrow \lnot L, \quad E \\
+\text{Conclusion:} \quad & \lnot T \rightarrow U
+\end{align*}
+
+From which we can easily prove that the conclusion is entailed by the premise, since in all cases where $\lnot T$ is true, we can see from the first WFF of the premise that $L$ must be true, and hence from the second that $U$ must also be true. \newline \par
+
+This relationship between semantic entailment and logical entailment is important, because multiple works have derived `idioms' of entailment from logical analysis, which, as we shall now outline, provide justification for this thesis' hypothesis that topological features in embedding spaces can capture semantic entailment relationships. 
+
+\subsection{Entailment as a Subsumption Relationship of Hypergraphs}
+
+
+
+\subsection{}
+
+
+
+
+
+
+
+
+
+\section{Practical Progress in Semantic and Visual Entailment}
+\subsection{Semantic Entailment}
 Common approaches developed to solve challenges related to semantic entailment, such as those posed in the PASCAL \cite{dagan2006} or Stanford Natural Language Inference (SNLI) \cite{bowman2015} datasets, typically fall into one or several of the following categories \cite{PARAMASIVAM20229644}:
 \begin{itemize}
     \item Lexical approaches, that focus on the linguistic information of input surface strings, without considering syntactic or semantic properties
@@ -137,16 +179,18 @@ Common approaches developed to solve challenges related to semantic entailment, 
     \item Logical approaches, where a logical representation language is used to determine entailment
     \item AI approaches, where entailment models are built to recognize entailment, with classifiers used to determine if a text-hypothesis pair of inputs results in entailment 
 \end{itemize}
-
-
-\section{Visual Entailment}
+\subsection{Visual Entailment}
 \section{Topology of Language}
 Theoretical approaches followed by  practical?
-\subsection{Fractal Geometry}
-\subsection{Persistent Homology}
-\subsection{MAPPER}
-\subsection{Intrinsic Dimensionality}
-\subsection{Sheaf Theory}
+\subsection{Topological Data Analysis (TDA)}
+\subsubsection{Persistent Homology}
+\subsubsection{MAPPER}
+\subsection{TDA applied to Language}
+\subsubsection{Fractal Geometry of Language}
+\subsubsection{Intrinsic Dimensionality}
+\subsubsection{Practical Applications of TDA in NLP}
+\subsection{Euclidean vs. Hyperbolic Geometry for Entailment Mappings}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
