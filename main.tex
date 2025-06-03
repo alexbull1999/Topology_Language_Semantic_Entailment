@@ -322,6 +322,20 @@ In summary, material shortcomings currently exist with every major category of a
 
 \subsection{Visual Entailment}
 
+Alongside semantic entailment sits the related task of visual entailment. Instead of a textual premise-hypothesis pair, in visual entailment tasks the premise is an image, while hypotheses remain textual sentences that models are to classify with \textit{entailment}, \textit{contradiction}, or \textit{neutral} labels. \newline \par
+
+The key visual entailment dataset, \textit{SNLI-VE}, was developed by Xie et al.\cite{xie2019visualentailmentnoveltask} in 2019, and - as the name suggests - is built on the SNLI dataset discussed above. Figure 2.2, taken from Xie et al. (p. 2) \cite{xie2019visualentailmentnoveltask} provides an example of the premise-hypothesis pairs from SNLI-VE. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 1\hsize]{./figures/SNLI-VE.png}
+\caption{An Example from SNLI-VE dataset}
+\label{fig:SNLI-VE}
+\end{figure}
+
+In the same paper, Xie et al. propose both transformer and CNN-based architectures as viable solutions to tackle the visual entailment challenge, achieving benchmark accuracy scores of just over 70\%.
+
+The visual entailment task is of relevance to this thesis because we hypothesise that the topological entailment relationship we seek to define between textual premise-hypothesis pairs in a high-dimensional embedding space could also hold for multimodal premise-hypothesis pairs, where an image serves as the premise and text as the hypothesis. This would require mapping both visual and textual representations into a shared embedding space, enabling the hyperbolic entailment cone framework, that we seek to develop to describe entailment relationships, to operate across modalities.
 
 \section{Topology of Language}
 Theoretical approaches followed by  practical?
