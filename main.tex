@@ -236,17 +236,93 @@ Progressing from logical entailment to focus on natural language semantics, rece
 
 However, these conditions are often not representative of the average human speakers, and certainly not representative of the vast wealth of text that is available on the internet and that LLMs are trained on. It is hence no surprise, that the performance of LLMs, and of AI approaches in general, on tasks involving recognising textual entailment (RTE) leaves room for improvement. Indeed, in the survey of textual entailment based question answering methods, Paramasivam and Nirmala highlight that benchmark accuracy scores are often no higher than 50-70\%, particularly for generalised datasets with non-obvious hypothesis-premise entailment pairs that span across multiple domains \cite{PARAMASIVAM20229644}). 
 
-\section{An Overview of Progress, Methodologies, and Benchmarks in Semantic and Visual Entailment}
+\section{Progress, Approaches, and Benchmarks in Semantic and Visual Entailment}
 
-\subsection{Semantic Entailment}
-Common approaches developed to solve challenges related to semantic entailment, such as those posed in the PASCAL \cite{dagan2006} or Stanford Natural Language Inference (SNLI) \cite{bowman2015} datasets, typically fall into one or several of the following categories \cite{PARAMASIVAM20229644}:
+\subsection{Recgonizing Textual Entailment (RTE)}
+
+Recognizing Textual Entailment (RTE) is the common name given to the ``evaluation framework [used] to compare semantic understanding of different NLP systems,'' \cite{poliak-2020-survey} through testing their ability to determine if one sentence can be inferred from another. The definition of entailment used in RTE is more lenient than strict definition used in linguistics whereby ``sentence A entails sentence B if in all models in which the interpretation of A is true, also the interpretation of B is true.'' \cite{sep-montague-semantics} This difference is highlighted in the annotation guidelines of the 2005 PASCAL RTE dataset released by Dagan et al, in which is stated that, for the purposes of RTE, entailment means that ``in principle, the hypothesis must be fully entailed by the text. Judgement would be False if the hypothesis includes parts that cannot be inferred from the text. However, cases in which inference is very probable (but not completely certain) are still judged as True.'' \cite{dagan2005} \newline \par
+
+This is an important distinction. The ``fuzzier notion of entailment'' \cite{poliak-2020-survey} used by RTE is highly indicative of the purpose of the RTE challenges - namely to evaluate the semantic understanding of NLP systems, which are built with specific objectives - be it as an LLM, a machine translator, an information retrieval system or otherwise. In virtually all these cases, where inference is very probable, it is beneficial for the system to evaluate the premise-hypothesis pair as entailed, (e.g. resulting in it retrieving the likely relevant information in the case where it is an IR system), rather than as contradictory. In a similar vein, we want NLP systems to be able to deal with cases of `near-contradiction' in NLP problems, such as in the example given by \cite{merrill-etal-2022-entailment}, where you have:
+\begin{align*}
+x =  \text{I’m not in North America}\\
+y =  \text{I’m in a US state}    
+\end{align*}
+
+As Merril et al. point out, `$y$ nearly contradicts $x$ because they are both satisfiable only in worlds where the speaker is in Hawaii'', hence we need NLP systems to be able to judge whether $x$ and $y$ are entailed, contradictory, or neutral based on any additional context given. 
+
+\subsection{Intrinsic vs. Extrinsic Evaluations}
+
+In Poliak's survey on Recognizing Textual Entailment as an NLP Evaluation \cite{poliak-2020-survey}, he makes the helpful distinction between intrinsic evaluations, i.e. application-free and ``concerned with the system’s own objectives'' \cite{estival1997}, and extrinsic criteria, i.e. application-driven and ``concerned with the function of the system in relation to its set-up'' \cite{estival1997}. As a more concrete example, ``when evaluating a document summarization system, an intrinsic evaluation might ask questions related to the fluency or coverage of key ideas in the summary while an extrinsic evaluation might explore whether a generated summary was useful in a search engine.'' \cite{poliak-2020-survey} \newline \par
+
+This is a helpful distinction to keep in mind as we provide an overview of the common approaches to RTE and key datasets used in RTE evaluations over the following sections; since an increasingly common criticism levelled against some of the common RTE datasets is a challenge to their ``ability to test the inferential capabilities of NLP models, [namely] a high accuracy on these datasets does not indicate which types of reasoning RTE models perform or capture.'' \cite{poliak-2020-survey} White et al. take this critique a step further, noting that ``researchers ompete on which system achieves the highest score on a test set, but this itself does not lead to an understanding of which linguistic properties are better captured by a quantitatively superior system.'' \cite{white-etal-2017-inference} Put differently, while the accuracy metric used to measure RTE does indicate how well a model determines if one sentence entails another, ``it does not illuminate how well NLP models capture different semantic phenomena that are important for general NLU.'' \cite{poliak-2020-survey} Through our topological approach to semantic entailment, we hope to not only improve the entailment accuracy on these RTE datasets, but also to be able to clearly define the topological features that can be used to robustly determine entailment.
+
+\subsection{An Overview of Key RTE Datasets} 
+
+The following section provides an overview of some of the key datasets that have been used either as training data to improve the ability of NLP systems to evaluate semantic entailment, or as test datasets to assess the abilities of such systems. Some of the datasets discussed below will be leveraged as training and test datasets for the experiments conducted in this thesis [add precisely which when experiments conducted]. \newline \par
+
+\textbf{FraCas}. Developed by Cooper et al. in 1996 \cite{CooperFracas},   \textit{FraCas} is a short dataset of only about 350 examples of premise-hypothesis pairs, that were created manually by linguists, with the specific aim of testing an NLP systems' ability to understand a range of semantic phenomena including ``generalized quantifiers, plurals, anaphora, ellipsis, adjectives, comparatives, temporal references, verbs, and attitudes'' \cite{poliak-2020-survey}. Premises are at least one sentence long, but can be multiple, and hypothesis are written as a question, with possible answers being `\textit{Yes}' for entailment, `\textit{No}' for contradiction, or `\textit{Don't know}' for neutral. While the \textit{FraCas} dataset has the benefit of being crafted to evaluate an NLP systems' performance against specific semantic phenomena, its short size prevents it from being a viable model to train deep learning models on - although it remains useful as a test dataset. \newline \par
+
+\textbf{Pascal RTE Challenges}. The first Pascal RTE challenge, developed by Dagan et al. \cite{dagan2005}, was designed as a generic evaluation framework ``to compare the inference capabilities of [NLP] models designed to perform different tasks.'' \cite{poliak-2020-survey}. It had more of a real-world applied focus than the \textit{FraCas} dataset, and hence hypothesis-premise pairs in the Pascal datasets were frequently taken from the downstream tasks of such sytems. For example, the first Pascal RTE dataset was extracted from ``7 tasks: comparable documents, reading comprehension, question answering, information extraction, machine translation, information retrieval, and paraphrase acquisition.'' \cite{poliak-2020-survey}. Since the first Pascal dataset in 2005, there have been eight further iterations, the most recent being Dzikovska et al. in 2013 \cite{dzikovska-etal-2013-semeval}. Examples of premise-hypothesis pairs from the first three Pascal iterations can be found in Table 1, taken from Poliak (p.5) \cite{poliak-2020-survey}. While the Pascal datasets are significantly larger than the \textit{FraCas} equivalents, they are still not of the size required to train deep learning models on - the first Pascal dataset, for instance, only contains roughly 1000 examples. This brings us onto the more recent, popular and larger RTE datasets that have largely been developed in order to train deep learning models.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 1\hsize]{./figures/PASCAL examples.png}
+\label{fig:PASCAL}
+\end{figure}
+
+\textbf{Deep Learning Datasets}. We will briefly survey four key datasets that are large enough to be used as training datasets for deep learning models. The first of the four, \textit{Sentences Involving Compositional Knowledge} (SICK) was created in 2014 \cite{marelli-etal-2014-sick}, and contains roughly 10,000 examples that can be used to test semantic entailment (``with three possible labels: entailment, contradiction, and neutral'' \cite{PARAMASIVAM20229644}) and semantic similarity (via a 5 point scale rating). A year later, Bowman et al. \cite{bowman2015} created the \textit{Stanford Natural Language Inference} (SNLI) corpus, containing 570,000 examples of ``sentence pairs labelled for entailment, contradiction, and semantic independence.'' \cite{PARAMASIVAM20229644} In the SNLI corpus, the same premise can be paired with up to three different hypotheses, each with a potentially different entailment label, as displayed by Table 2 below, taken from Poliak (p.6)\cite{poliak-2020-survey}.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 1\hsize]{./figures/SNLI examples.png}
+\label{fig:SNLI}
+\end{figure}
+
+The \textit{Multi-Genre Natural Language Inference} (MNLI) dataset was introduced in 2018 by Williams et. al \cite{williams-etal-2018-broad}, to build on the SNLI dataset by collecting roughly 430,000 examples across ten different written and spoken languages, as opposed to SNLI where all examples are in English. The final dataset worth mentioning here is the \textit{SciTail} dataset developed by Khot et al. \cite{Khot_Sabharwal_Clark_2018}, which differs from the the three previously mentioned datasets, insofar as it is the only one of the four to have been created from existing textual sources, rather than through crowd-sourced workers and volunteers. The SciTail dataset is, however, a lot smaller than SNLI and MNLI, containing just under 30,000 examples of science-themed premise-hypothesis pairs. \newline \par
+
+
+\subsection{Common approaches to semantic entailment tasks}
+
+This section outlines the core approaches that have thus far been adopted to tackle textual entailment challenges, and highlights certain shortcomings and limitations of each approach. \newline \par
+
+Following Paramasivam and Nirmala \cite{PARAMASIVAM20229644}, we categorise approaches to RTE as typically falling into one or several of the following categories:
 \begin{itemize}
-    \item Lexical approaches, that focus on the linguistic information of input surface strings, without considering syntactic or semantic properties
-    \item Semantic approaches, which consider the meaning of the text in broader context to evaluate entailment, as opposed to only considering the input surface strings as in the lexical approach
-    \item Logical approaches, where a logical representation language is used to determine entailment
-    \item AI approaches, where entailment models are built to recognize entailment, with classifiers used to determine if a text-hypothesis pair of inputs results in entailment 
+    \item \textbf{Lexical approaches}, that focus on the linguistic information of input surface strings, without considering syntactic or semantic properties
+    \item \textbf{Semantic approaches}, which consider the meaning of the text in broader context to evaluate entailment, as opposed to only considering the input surface strings as in the lexical approach
+    \item \textbf{Logical approaches}, where a logical representation language is used to determine entailment
+    \item \textbf{AI approaches}, where entailment models are built to recognize entailment, with classifiers used to determine if a text-hypothesis pair of inputs results in entailment 
 \end{itemize}
+
+The shortcomings of solely \textbf{lexical} or \textbf{semantic} approaches are evident, since to understand meaning in any language, an understanding of both the lexis and syntax of the language is essential. Without an understanding of the broader context of the subject matter being discussed, lexical and syntactical understanding even together are still often not enough. Hence, a successful approach would require components of both the lexical and semantic approaches described above. However, major limitations still surround such approaches. Taking Shajalal et al's \cite{shajalal} approach as exemplary of this genre of RTE approaches, where they propose a methodology that converts into vector representation both lexical and semantic features of words, before using an average of the element-wise Manhattan distance vector (EMDV), Bag-of-Words based (BoW) similarity score, Jaccard similarity score (JAC), and the BERT-based semantic textual similarity score to determine entailment. The problem with this and similar lexical and/or semantic approaches is that they are measuring \textit{semantic similarity} to recognize \textit{semantic entailment}, when in reality, the two are in no way equal. \newline \par
+
+Taking an example of the sentence pair:
+\begin{flushleft}
+    \textbf{Sentence A:} ``The cat is sleeping on the sofa''\\
+    \textbf{Sentence B:} ``The dog is sleeping on the sofa''. 
+\end{flushleft}
+
+Both these sentences would result in high Bag-of-Words and Jaccard similarity scores, due to the fact that they share every word except for cat and dog. Similarly, in the majority of vector embeddings (such as BERT and Word2Vec), `cat' and `dog' are close neighbours from a distance perspective, due to their distributional similarity in training data. In the above sentences, they also play the same grammatical role as the subject of the sentence. Given this trivial example, we can already see how methods that rely on semantic similarity to measure entailment might falsely detect entailment where there is none (as could be the case in the above situation), and vice-versa. A further issue with purely distance-based methods is their inability to take into account the asymmetrical and hierarchical nature of entailment, that we discussed in section 2.1. This is again easily demonstrated by means of example:
+\begin{flushleft}
+    \textbf{Pair A:} \textit{Premise}: `All cats are animals'. \textit{Hypothesis}: `Some cats are animals' \\
+    \textbf{Pair B:} \textit{Premise}: `Some cats are animals'. \textit{Hypothesis}: `All cats are animals'
+\end{flushleft}
+
+Given the premise and hypothesis in both pairs are identical, it is easy to see that a purely distance-based approach to entailment would fail to differentiate between the fact that \textit{Pair A} is an entailment relationship, while \textit{Pair B} is not an entailment relationship, because the directional relationship from specialisation to generalisation is going the wrong way. \newline \par
+
+Purely \textbf{logical approaches} to entailment, such as the one discussed in Section 2.1.2 are able to resolve some of these difficulties due to their ability to focus on the structure and hierarchical relationships of arbitrarily-named variables; rather than having to deal with lexical and syntactical parsing of natural language. However, they are of less use for the purposes of this thesis, which focuses on developing a metric for semantic entailment that can be used to measure and improve the performance of LLMs. Given this context, an approach to semantic entailment that works in natural language, where words can be replaced by synonyms, and word order and syntax can be restructured without changing meaning, is essential. \newline \par
+
+The category of \textbf{AI approaches} described by Paramasivam and Nirmala \cite{PARAMASIVAM20229644} is a broad one, and is mostly used to designate deep learning entailment models that may focus to greater or lesser on lexical, semantic or logical elements of sentences depending on the model. As Poliak notes \cite{poliak-2020-survey}, the recent advances in deep learning have led to ``a resurgence of interest in RTE amongst NLP researchers'' (p.6). Indeed, one needs to only look at the SNLI leaderboard to see the high accuracy scores that have been achieved with such AI approaches - with the current leading benchmark having achieved 94.7\% accuracy. Despite such high accuracy scores, these AI approaches also suffer from important shortcomings. As Poliak points out \cite{poliak-2020-survey}, the resurgence of deep learning approaches to RTE ``did not primarily focus on using RTE as a means to evaluate NLP systems. Rather, researchers primarily used these datasets to compete with one another to achieve the top score on leaderboards for new RTE datasets.'' (p.6) Going further than this, Pavlick argues that the high scores achieved in some of these leaderboards actually provide ``little evidence to suggest [that RTE models] capture the type of compositional or world knowledge tested by datasets like the FraCas test suits,'' \cite{pavlick2017} which were deliberately crafted in a manner to challenge the ability of NLP systems to cope with a range of semantic phenomena. Further evidence that this is the case is provided by Sanwal \cite{sanwal2024evaluatinglargelanguagemodels}, who showed how an LLM-based model that achieved 89.9\% accuracy on the SNLI dataset experienced a significant performance drop of 17\%, to only achieve 72.5\% accuracy when tested on a `contrast set'. Sanwal suggests that this drop in performance was likely due to limitations of the SNLI dataset which lacks the nuanced and diverse examples that were integrated to their contrast set, and were deliberately created to expose the model to a ``broader spectrum of linguistic scenarios.'' (p. 2) \newline \par
+
+In summary, material shortcomings currently exist with every major category of approach to RTE tasks. While more recently `AI approaches' have yielded high accuracy scores on key datasets such as SNLI, their ability to generalise away from the often simple examples of these datasets is under scrutiny. By developing a metric for semantic entailment that is built upon solid logical and theoretical foundations, and that is demonstrable through topological data analysis, we seek to address some of these shortcomings since such a metric would:
+\begin{itemize}
+    \item Measure semantic entailment, rather than semantic similarity
+    \item Be robust enough to deal with entailment examples that involve more nuanced linguistic phenomena 
+\end{itemize}
+
 \subsection{Visual Entailment}
+
+
 \section{Topology of Language}
 Theoretical approaches followed by  practical?
 \subsection{Topological Data Analysis (TDA)}
