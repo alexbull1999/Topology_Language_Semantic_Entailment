@@ -128,7 +128,7 @@ Chapter 2 provides an overview of the relevant theoretical and practical backgro
 \chapter{Background and Related Work}
 This chapter presents an overview of existing progress and key related works in the fields of semantic and visual entailment, before providing a minimum theoretical grounding in the primary Topological Data Analysis (TDA) and Hyperbolic Geometry methodologies that will be used throughout this thesis. \newline \par
 
-Section 2.1 focuses on logical representations of entailment tasks, which help to provide the theoretical framework for how we practically apply topological data analysis (TDA) methods in this thesis. \par \quad Section 2.2 introduces key practical datasets that have been used to experiment with semantic and visual entailment challenges in the NLP and Computer Vision communities respectively, alongside the metrics used, and varying approaches that have already been adopted.  \par \quad Finally, section 2.3 introduces two key Topological Data Analysis (TDA) methodologies - Persistent Homology and MAPPER - before discussing their relevance to language through exploring theoretical papers relating to the geometry of language. Section 2.3 closes by surveying existing practical applications of TDA in NLP, before briefly discussing the benefits of Euclidean vs. Hyperbolic Geometry in the context of semantic entailment - a question that is highly relevant for the practical approach we decide to adopt in the following chapters of this thesis. 
+Section 2.1 focuses on logical representations of entailment tasks, which help to provide the theoretical framework for how we practically apply topological data analysis (TDA) methods in this thesis. \par \quad Section 2.2 introduces key practical datasets that have been used to experiment with semantic and visual entailment challenges in the NLP and Computer Vision communities respectively, alongside the metrics used, and varying approaches that have already been adopted.  \par \quad Finally, section 2.3 introduces two key Topological Data Analysis (TDA) methodologies - Persistent Homology and MAPPER - before surveying existing practical applications of TDA in NLP, and briefly discussing the benefits of Euclidean vs. Hyperbolic Geometry in the context of semantic entailment - a question that is highly relevant for the practical approach we adopt in the following chapters of this thesis. 
 
 \section{Logical Representations of Entailment}
 
@@ -305,7 +305,7 @@ Purely \textbf{logical approaches} to entailment, such as the one discussed in S
 The category of \textbf{AI approaches} described by Paramasivam and Nirmala \cite{PARAMASIVAM20229644} is a broad one, and is mostly used to designate deep learning entailment models that may focus to greater or lesser on lexical, semantic or logical elements of sentences depending on the model. As Poliak notes \cite{poliak-2020-survey}, the recent advances in deep learning have led to ``a resurgence of interest in RTE amongst NLP researchers'' (p.6). Indeed, one needs to only look at the SNLI leaderboard to see the high accuracy scores that have been achieved with such AI approaches - with the current leading benchmark having achieved 94.7\% accuracy. Despite such high accuracy scores, these AI approaches also suffer from important shortcomings. As Poliak points out \cite{poliak-2020-survey}, the resurgence of deep learning approaches to RTE ``did not primarily focus on using RTE as a means to evaluate NLP systems. Rather, researchers primarily used these datasets to compete with one another to achieve the top score on leaderboards for new RTE datasets.'' (p.6) Going further than this, Pavlick argues that the high scores achieved in some of these leaderboards actually provide ``little evidence to suggest [that RTE models] capture the type of compositional or world knowledge tested by datasets like the FraCas test suits,'' \cite{pavlick2017} which were deliberately crafted in a manner to challenge the ability of NLP systems to cope with a range of semantic phenomena. Further evidence that this is the case is provided by Sanwal \cite{sanwal2024evaluatinglargelanguagemodels}, who showed how an LLM-based model that achieved 89.9\% accuracy on the SNLI dataset experienced a significant performance drop of 17\%, to only achieve 72.5\% accuracy when tested on a `contrast set'. Sanwal suggests that this drop in performance was likely due to limitations of the SNLI dataset which lacks the nuanced and diverse examples that were integrated to their contrast set, and were deliberately created to expose the model to a ``broader spectrum of linguistic scenarios.'' (p. 2) \newline \par
 
 In summary, material shortcomings currently exist with every major category of approach to RTE tasks. While more recently `AI approaches' have yielded high accuracy scores on key datasets such as SNLI, their ability to generalise away from the often simple examples of these datasets is under scrutiny. By developing a metric for semantic entailment that is built upon solid logical and theoretical foundations, and that is demonstrable through topological data analysis, we seek to address some of these shortcomings since such a metric would:
-\begin{itemize}[itemsep=0pt]
+\begin{itemize}[topsep=0pt, itemsep=0pt]
     \item Measure semantic entailment, rather than semantic similarity
     \item Be robust enough to deal with entailment examples that involve more nuanced linguistic phenomena 
 \end{itemize}
@@ -334,6 +334,7 @@ The visual entailment task is of relevance to this thesis because we hypothesise
 Topological Data Analysis (TDA) applies concepts from topology - a branch of mathematics - in the fields of computer and data science, based on the observation that data points have implicit shapes. \cite{savle-etal-2019-topological} Due to the fact that the `shape' of texts are not instantly obvious, TDA has not been explored as much in the field of NLP as it has been in certain other domains such as Computer Vision. \cite{uchendu2024unveilingtopologicalstructurestext} \newline \par
 
 Despite this, texts can well take the shape of their numerical representations, but different numerical representations of text will capture different linguistic features. Hence, the choice of representation matters, whether Term Frequency - Inverse Document Frequency (TF-IDF), Word2Vec, GloVe, or FastText embeddings are used \cite{uchendu2024unveilingtopologicalstructurestext}. There are two principal methods that TDA encompasses, which we shall provide a brief overview of:
+\vspace{-10pt}
 \subsubsection{Persistent Homology}
 Persistent homology is the more popular of the two methods, and ``uses algebraic topology methods to extract topological signatures at different spatial dimensions. This process involves representing data as a point cloud and performing deformation or perturbation processes to extract the true `shape' of the data after the noise has been removed.'' \cite{uchendu2024unveilingtopologicalstructurestext} (p.2) We direct the interested reader to \cite{uchendu2024unveilingtopologicalstructurestext} for a more thorough explanation of the concepts underlying persistent homology. \newline \par 
 
@@ -371,19 +372,28 @@ The application of TDA methodologies to language remains a relatively niche aspe
     \item Text genre classification, e.g. of movie plots \cite{doshi2018}, and authorship attribution, e.g. of Persian poems \cite{elyasi2019introductionnewtextclassification}
 \end{itemize}
 
-\textbf{TDA for Semantic Meaning}. 
+\textbf{TDA for Semantic Meaning}. This is the most relevant category of existing TDA applications for the purposes of this thesis, and includes studies that have explored:
+\begin{itemize} [itemsep=0pt]
+    \item The representation and visualisation of semantic space as simplicial complexes in topological space \cite{CHIANG2007256, karlgren2014}
+    \item Deriving consistent correlations between sentence vectors and the semantic meaning of a sentence across multiple embedding methods including GPT-3, Word2Vec, and Sentence-BERT \cite{sun2023topologicalinterpretationsgpt3}
+    \item Detection of polysemous words \cite{jakubowski-etal-2020-topology} and homonyms \cite{temčinas2018localhomologywordembeddings} through the topology of their manifolds 
+\end{itemize} 
 
+A final highly relevant paper worth mentioning in this context is Savle et al's \cite{savle-etal-2019-topological} research on applying TDA to discourse structures in order to improve performance on natural language inference tasks in the Competition of Legal Information Extraction and Entailment (COLIEE) dataset. The COLIEE task was to identify whether each of the 181 `base cases' provided from a collection of Canadian legal decisions were entailed or not by the supporting paragraph files that accompanied them. In total, the dataset provided 181 base cases for training, with 8794 accompanying paragraph files. 239 of these paragraph files positively entailed at least one of the 181 base cases, while the remainder did not. This led to a highly unbalanced training set which, combined with the highly specialized legal subject matter, resulted in challenges for traditional neural network or semantic similarity approaches to the problem \cite{savle-etal-2019-topological}. Interestingly, Savle et al. demonstrated how, when the textual inputs were analysed via persistent homology, ``the radius of birth-death cycles were significantly different for entailed documents as compared to the non-entailed ones,'' (p. 6) \cite{savle-etal-2019-topological} enabling them to improve on the F-score of the previous highest-performing model by over 5\%. This thesis aims to build on the work outlined here, and suggest answers to the ``tension between the positive empirical results deriving using topological methods and our lack of understanding why these methods work.'' (p. 2)\cite{savle-etal-2019-topological}
 
-- word manifolds for synthetic text detection
-- intrinsic dimensionality as artificial text detector
-- linguistic/grammatical acceptability
-- differentiation between children and adult writing style
-- semantic entailment in legal context
+\subsection{Topological Structures of Entailment: Hyperbolic Geometry and Entailment Cones}
+Recent advances in geometric approaches to semantic relationships can provide inspiration for how we shall look to identify entailment relationships in the topological spaces created through TDA in this thesis. Of particular interest is the concept of entailment cones, developed by Dhall et al. \cite{dhall2020hierarchicalimageclassificationusing} and Ganea et al. \cite{ganea2018hyperbolicentailmentconeslearning}, which describe geometric structures that naturally encode the asymmetric and hierarchical nature of logical entailment. \newline \par
 
+The concept of entailment cones is reliant on the notion of \textit{order-embeddings}, as set out by Vendrov et al. \cite{vendrov2016orderembeddingsimageslanguage}, which bridge the gap between standard word vector representations with the hierarchical nature of semantic relationships, by modelling the partial order structure of such hierarchies in the embeddings. As Dhall et al. \cite{dhall2020hierarchicalimageclassificationusing} points out, this approach directly addresses entailment's inherent directionality by creating an `asymmetric distance resulting in the formation of a transitive embedding space'' (p.3), as displayed in Figure 2.4 borrowed from Dhall et al. (p.3).  
 
+\begin{figure}[H]
+\centering
+\includegraphics[height = 0.2\textheight]{./figures/OEandEC.png}
+\caption{Comparing embedding space for order-embeddings and entailment cones}
+\label{fig:OE+EC}
+\end{figure}
 
-\subsection{Euclidean vs. Hyperbolic Geometry for Entailment Mappings}
-
+The limitation with order-embeddings, as pointed out by Ganea et al. \cite{ganea2018hyperbolicentailmentconeslearning}, is the significant capacity limitations that accompany the orthant-structure, where `the capacity of order embeddings grows only linearly with the embedding space dimension,' and the orthant regions `suffer from heavy intersections implying that their disjoint volumes rapidly become bounded.' (p.1) As a solution to this Ganea et al. propose entailment cones as a natural generalization of order embeddings, which replace the rigid orthants with `geodesically convex cones' (p.1) that preserve the asymmetric nature of entailment, while providing greater representational flexibility than orthant-based methods. \cite{ganea2018hyperbolicentailmentconeslearning} Furthermore, Ganea et al. demonstrate that entailment cones have significant spatial advantages when implemented in hyperbolic space, where `the volume of any ball grows exponentially with its radius, instead of polynomially as in the Euclidean space' (p. 2) \cite{ganea2018hyperbolicentailmentconeslearning}. This property enables hyperbolic spaces to accommodate the exponential branching structure that is inherent in semantic hierarchies, and that, we hypothesise, will be necessary in robustly modelling semantic entailment. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -396,6 +406,13 @@ Note: Chapter for Background Interim Report only for second marker feedback. \ne
         \item I.e., test the assumption that, if a hypothesis is semantically entailed by a given premise (whether visual or textual), there should be a topological connection (e.g a hyperbolic entailment cone) between the two statements in some higher dimensional space after mapping them using various TDA methods
         \item Aim to find a robust entailment metric that would allow us to match the correct hypothesis with the premise that entails it, after randomization and shuffling of all premises and hypotheses in a given dataset. 
         \item Such a dataset should contain hypotheses that are both entailed, neutral, and contradicted by the premises, so that the final matching will only assign a subset of the hypotheses as entailed by premises, with the rest assigned to either neutral or contradictory labels.
+        \begin{enumerate}[topsep=0pt, itemsep=0pt]
+            \item Train order embeddings on the SNLI dataset
+            \item Convert order embeddings to hyperbolic entailment cones using Ganea et al's closed-form expressions
+            \item Apply persistent homology techniques to analyse cone intersection patterns and violation structures
+            \item Extract topological features that correlate with entailment strength
+            \item Develop differentiable approximation for LLM regularization
+        \end{enumerate}
     \end{itemize}
     \item If successful in finding such an entailment metric, look to:
     \begin{itemize}[topsep=0pt, itemsep=0pt]
