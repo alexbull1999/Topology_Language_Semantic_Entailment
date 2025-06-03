@@ -74,7 +74,7 @@ Brecht's experience of fluency of alienation from the linguistic \textit{habitus
 
 In addition to an expectation of fluency and familiarity with our language, we also expect LLMs to understand and answer our questions in the same reasonable and reliable manner as we would expect from a subject matter expert. To fulfil these expectations, the ability for LLMs to understand semantic `meaning' and entailment is key. This is, however, not the case today. LLMs are commonly ``trained on text alone, without additional grounding''\cite{merrill-etal-2022-entailment}, with the missing-word prediction training tasks unable ``in principle [to] lead to learning of meaning.''\cite{bender-koller-2020-climbing} \newline \par 
 While Bender et al. cast doubt on the ability of LLMs to truly understanding meaning, and hence to robustly evaluate more challenging semantic entailment tasks, these are also something that humans can often falter with. For example, given the premise ``All men are created equal'' with contextual knowledge of its origin in the US Declaration of Independence, multiple `valid' interpretations of the hypothesis ``Every person has the same inherent value'' are possible, each with very different ramifications:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
     \item \textit{Contradiction}: `Men' in 1776 deliberately excluded women, enslaved people, Indigenous peoples.
     \item \textit{Entailment}: Despite historical limitations, the principle of the hypothesis is universal and should be understood as such.
 \end{enumerate}
@@ -107,7 +107,7 @@ The aim of this project is to understand the topology of language in LLM vector 
 
 To achieve this aim, we make the following contributions: 
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
     \item \textbf{We implement topological data analysis (TDA) techniques (persistent homology, MAPPER) to investigate topological relationships between entailed, contradictory, and neutral premise-hypothesis pairs.} In Chapter X, we undertake this for semantic entailment, using the Stanford Natural Language Inference (SNLI) dataset. In Chapter (X+1), we replicate this task for a visual entailment dataset (SNLI-VE), where premises are given in the form of images rather than phrases.
     \item \textbf{We develop a robust mathematical expression for entailment using concepts from hyperbolic geometry - namely hyperbolic entailment cones}, from which we derive an entailment metric that can produce accurate entailment scores across semantic and visual entailment challenges; and be used to compare existing LLM performances on such tasks
     \item \textbf{We train an LLM with an `entailment regularizer'}, based on the entailment expression in 2., and demonstrate that it has superior performance on semantic and visual entailment tasks vs. SOTA benchmarks 
@@ -146,7 +146,7 @@ If the Tory party does not win then the unions
 support the Labour party?    
 \end{flushleft}
 
-Using `E' to stand for elections, `L' to stand for a Labour victory, `T' to stand for a Tory victory, and `U' to stand for unions supporting labour, we can easily remodel these natural language statements into CNF: \newline 
+Using `E' to stand for elections, `L' to stand for a Labour victory, `T' to stand for a Tory victory, and `U' to stand for unions supporting labour, we can easily remodel these natural language statements into CNF: 
 \begin{align*}
 \text{Premise:} \quad & E \rightarrow L \lor T, \quad \lnot U \rightarrow \lnot L, \quad E \\
 \text{Conclusion:} \quad & \lnot T \rightarrow U
@@ -158,10 +158,10 @@ This relationship between semantic entailment and logical entailment is importan
 
 \subsection{Entailment as a Subsumption Relationship of Hypergraphs}
 
-Jennings et al. \cite{leibnizianAnalysis} formulate a novel approach to entailment, using Leibnizian analysis to demonstrate how logic entailment can be demonstrated through subsumption relationships between hypergraphs. Before discussing their work and its relevance to this thesis, we first outline several key concepts for the unfamiliar reader: \newline
-\begin{itemize}
+Jennings et al. \cite{leibnizianAnalysis} formulate a novel approach to entailment, using Leibnizian analysis to demonstrate how logic entailment can be demonstrated through subsumption relationships between hypergraphs. Before discussing their work and its relevance to this thesis, we first outline several key concepts for the unfamiliar reader: 
+\begin{itemize}[itemsep=0pt]
     \item \textbf{Possible Worlds}. In logic, a possible world represents one possibility of truth values. For example, if we have a simple logical premise represented by literals $p$ (meaning, say, that it is raining), and $q$ (meaning, say, that the ground is wet), there are four possible worlds:
-    \begin{enumerate}
+    \begin{enumerate}[topsep=0pt, itemsep=0pt]
         \item $w_1$: both p and q are true
         \item $w_2$: p is true, q is false
         \item $w_3$: p is false, q is true
@@ -173,8 +173,7 @@ Jennings et al. \cite{leibnizianAnalysis} formulate a novel approach to entailme
 \end{itemize}
 
 With this background, we can summarize the key insights outlined by Jennings et al. \cite{leibnizianAnalysis}, and their relevance for a topological investigation of semantic entailment in this thesis. We refer the interested reader to \cite{leibnizianAnalysis} for the mathematical proofs of these insights. \newline \par \quad 
-1. Since `every sentence has a finite analysis into its conjunctive normal form [...], semantically, then, every sentence of that language can be represented as a simple hypergraph, $H$, on the powerset of a universe of states'. \newline \par
-This is particularly relevant in the context of this thesis' topological approach, since hypergraph representations can naturally embed logical relationships into a geometric form. \newline \par \quad
+1. Since `every sentence has a finite analysis into its conjunctive normal form [...], semantically, then, every sentence of that language can be represented as a simple hypergraph, $H$, on the powerset of a universe of states'. This is particularly relevant in the context of this thesis' topological approach, since hypergraph representations can naturally embed logical relationships into a geometric form. \newline \par \quad
 2. An entailment relationship $\alpha \models \beta$, corresponds to a subsumption relationship between two hypergraphs on $\wp(U)$, such that $H_{\alpha} \sqsubseteq H_{\beta}$. The subsumption relationship is defined as true if \cite{leibnizianAnalysis}: 
 $$
 \forall H, H' \in \mathbb{H},\; H \sqsubseteq H',
@@ -183,27 +182,23 @@ $$
 \forall e \in E,\; \exists e' \in E' : e \leq e'  
 $$ 
 
-where $\mathbb{H}$ is a set of \textit{simple} hypergraphs such that $\mathbb{H} \subseteq \wp\wp(U)$. \newline \par
-
-Figure 2.1 demonstrates a trivial example of this, where a premise $(p \lor q \lor r) \land (\neg s \lor q) $  is modelled by the hypergraph $H_A$, whilst a conclusion $q \lor r$ is modelled by hypergraph $H_B$.
+where $\mathbb{H}$ is a set of \textit{simple} hypergraphs such that $\mathbb{H} \subseteq \wp\wp(U)$. Figure 2.1 demonstrates a trivial example of this, where a premise $(p \lor q \lor r) \land (\neg s \lor q) $  is modelled by the hypergraph $H_A$, whilst a conclusion $q \lor r$ is modelled by hypergraph $H_B$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 1\hsize]{./figures/HypergraphIntro.drawio.png}
+\includegraphics[width = 0.5\hsize]{./figures/HypergraphIntro.drawio.png}
 \caption{A hypergraph representation of $(p \lor q \lor r) \land (\neg s \lor q)$ in $H_A$, and $q \lor r$ in $H_B$}
 \label{fig:Hypergraphs}
 \end{figure}
 
-Following the definition given above, for the conclusion $H_B$ to be entailed by the premise $H_A$, every hyperedge of $H_B$ (in this case just $e_{b1}$), must be `underwritten' by at least one hyperedge in $H_A$. We can clearly see this is the not the case, and the conclusion is not entailed by the premise, since $H_A$ has no hyperedge containing just $\{q, r\}$. \newline
-
-The entailment relationship described above is also highly relevant to this thesis, as it provides a theoretical foundation according to which we can look for entailment relationships in our topological investigations of language. \newline \par
+Following the definition given above, for the conclusion $H_B$ to be entailed by the premise $H_A$, every hyperedge of $H_B$ (in this case just $e_{b1}$), must be `underwritten' by at least one hyperedge in $H_A$. We can clearly see this is the not the case, and the conclusion is not entailed by the premise, since $H_A$ has no hyperedge containing just $\{q, r\}$. The entailment relationship described above is also highly relevant to this thesis, as it provides a theoretical foundation according to which we can look for entailment relationships in our topological investigations of language. \newline \par
 
 \quad 3. The definition of entailment relationships via subsumption leads to the emergence of an algebraic lattice structure; namely that $\langle\mathbb{H}, \sqsubseteq\rangle$ is a lattice \cite{leibnizianAnalysis}. The connection between entailment relations and distributive lattices is further developed by Cederquist and Coquand \cite{Cederquist}, who establish a direct bridge between the abstract logical system of entailment relations and topological spaces, through the use of distributive and normal lattices. This lattice structure has the following important tenets:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
     \item \textbf{Partial Order}: The subsumption relation creates a partial order between the hypergraphs involved. For example, if $H_A \sqsubseteq H_B$, then we can colloquially think of $H_A$ as `containing more information' or being `higher' in the lattice than $H_B$
     \item \textbf{Lattice Operations}: Given any two hypergraphs $H_A$ and $H_B$, we can state that their \textit{join} $(H_A \lor H_B)$ is the hypergraph representing the weakest formula that \textbf{both entail}; whilst their \textit{meet} $(H_A \land H_B)$ is the hypergraph representing the strongest formula that \textbf{entails both}
     \item \textbf{De-Morgan Structure For Negation}: Logical negation can be accomplished using the blocker function $\tau$, which allows the following logical rules to hold true:
-    \begin{itemize}
+    \begin{itemize}[topsep=0pt]
         \item $\tau(\tau(H_A)) = H_A$, i.e. double negation
         \item $H_A \sqsubseteq H_B \iff \tau(H_B) \sqsubseteq \tau(H_A)$, i.e. order reversal under negation
     \end{itemize}
@@ -212,7 +207,7 @@ The entailment relationship described above is also highly relevant to this thes
 These findings are key for several reasons. Firstly, `the semantic idiom that hypergraph-theory affords reveals a hierarchy of lattices capable of representing entailments of every finite degree' \cite{leibnizianAnalysis}. Secondly, lattices themselves provide a bridge from discrete logical topographic structures (i.e. hypergraphs), to a continuous geometric space, where notions of `height' (how general vs. how specific a formula is), `distance' (how many steps in the lattice separate two formulae), and `directions' (moving up the lattice, as generalization, and moving down, as specialization) are all present. Combined, these two principles lay the theoretical foundation for this thesis' hypothesis that relationships of semantic entailment should be able to be detected and measured through topological analysis. The lattice structure should, in theory, enable the logical relationships of entailment to be preserved when we move from semantics in words and phrases across to their vector space embeddings in LLMs; while the partial order features of lattices capture the asymmetry of entailment, where $A \rightarrow B \neq B \rightarrow A$. \newline \par
 
 The key insights from this brief theoretical overview of entailment is that entailment creates asymmetric, hierarchical structures - whether represented as:
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
     \item Subsumption in hypergraphs (logical domain), as shown in \cite{leibnizianAnalysis}
     \item Partial orders in lattices (algebraic domain), demonstrated in \cite{Cederquist} and \cite{leibnizianAnalysis}
     \item Directional relationships in embeddings spaces (geometric domain), shown in Chapters 3 and 4
@@ -242,11 +237,8 @@ However, these conditions are often not representative of the average human spea
 
 Recognizing Textual Entailment (RTE) is the common name given to the ``evaluation framework [used] to compare semantic understanding of different NLP systems,'' \cite{poliak-2020-survey} through testing their ability to determine if one sentence can be inferred from another. The definition of entailment used in RTE is more lenient than strict definition used in linguistics whereby ``sentence A entails sentence B if in all models in which the interpretation of A is true, also the interpretation of B is true.'' \cite{sep-montague-semantics} This difference is highlighted in the annotation guidelines of the 2005 PASCAL RTE dataset released by Dagan et al, in which is stated that, for the purposes of RTE, entailment means that ``in principle, the hypothesis must be fully entailed by the text. Judgement would be False if the hypothesis includes parts that cannot be inferred from the text. However, cases in which inference is very probable (but not completely certain) are still judged as True.'' \cite{dagan2005} \newline \par
 
-This is an important distinction. The ``fuzzier notion of entailment'' \cite{poliak-2020-survey} used by RTE is highly indicative of the purpose of the RTE challenges - namely to evaluate the semantic understanding of NLP systems, which are built with specific objectives - be it as an LLM, a machine translator, an information retrieval system or otherwise. In virtually all these cases, where inference is very probable, it is beneficial for the system to evaluate the premise-hypothesis pair as entailed, (e.g. resulting in it retrieving the likely relevant information in the case where it is an IR system), rather than as contradictory. In a similar vein, we want NLP systems to be able to deal with cases of `near-contradiction' in NLP problems, such as in the example given by \cite{merrill-etal-2022-entailment}, where you have:
-\begin{align*}
-x =  \text{I’m not in North America}\\
-y =  \text{I’m in a US state}    
-\end{align*}
+This is an important distinction. The ``fuzzier notion of entailment'' \cite{poliak-2020-survey} used by RTE is highly indicative of the purpose of the RTE challenges - namely to evaluate the semantic understanding of NLP systems, which are built with specific objectives - be it as an LLM, a machine translator, an information retrieval system or otherwise. In virtually all these cases, where inference is very probable, it is beneficial for the system to evaluate the premise-hypothesis pair as entailed, (e.g. resulting in it retrieving the likely relevant information in the case where it is an IR system), rather than as contradictory. In a similar vein, we want NLP systems to be able to deal with cases of `near-contradiction' in NLP problems, such as in the example given by \cite{merrill-etal-2022-entailment}, where you have: $x$ = I’m not in North America, and $y$ = I’m in a US state. \newline \par
+
 
 As Merril et al. point out, `$y$ nearly contradicts $x$ because they are both satisfiable only in worlds where the speaker is in Hawaii'', hence we need NLP systems to be able to judge whether $x$ and $y$ are entailed, contradictory, or neutral based on any additional context given. 
 
@@ -287,16 +279,14 @@ The \textit{Multi-Genre Natural Language Inference} (MNLI) dataset was introduce
 This section outlines the core approaches that have thus far been adopted to tackle textual entailment challenges, and highlights certain shortcomings and limitations of each approach. \newline \par
 
 Following Paramasivam and Nirmala \cite{PARAMASIVAM20229644}, we categorise approaches to RTE as typically falling into one or several of the following categories:
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
     \item \textbf{Lexical approaches}, that focus on the linguistic information of input surface strings, without considering syntactic or semantic properties
     \item \textbf{Semantic approaches}, which consider the meaning of the text in broader context to evaluate entailment, as opposed to only considering the input surface strings as in the lexical approach
     \item \textbf{Logical approaches}, where a logical representation language is used to determine entailment
     \item \textbf{AI approaches}, where entailment models are built to recognize entailment, with classifiers used to determine if a text-hypothesis pair of inputs results in entailment 
 \end{itemize}
 
-The shortcomings of solely \textbf{lexical} or \textbf{semantic} approaches are evident, since to understand meaning in any language, an understanding of both the lexis and syntax of the language is essential. Without an understanding of the broader context of the subject matter being discussed, lexical and syntactical understanding even together are still often not enough. Hence, a successful approach would require components of both the lexical and semantic approaches described above. However, major limitations still surround such approaches. Taking Shajalal et al's \cite{shajalal} approach as exemplary of this genre of RTE approaches, where they propose a methodology that converts into vector representation both lexical and semantic features of words, before using an average of the element-wise Manhattan distance vector (EMDV), Bag-of-Words based (BoW) similarity score, Jaccard similarity score (JAC), and the BERT-based semantic textual similarity score to determine entailment. The problem with this and similar lexical and/or semantic approaches is that they are measuring \textit{semantic similarity} to recognize \textit{semantic entailment}, when in reality, the two are in no way equal. \newline \par
-
-Taking an example of the sentence pair:
+The shortcomings of solely \textbf{lexical} or \textbf{semantic} approaches are evident, since to understand meaning in any language, an understanding of both the lexis and syntax of the language is essential. Without an understanding of the broader context of the subject matter being discussed, lexical and syntactical understanding even together are still often not enough. Hence, a successful approach would require components of both the lexical and semantic approaches described above. However, major limitations still surround such approaches. Taking Shajalal et al's \cite{shajalal} approach as exemplary of this genre of RTE approaches, where they propose a methodology that converts into vector representation both lexical and semantic features of words, before using an average of the element-wise Manhattan distance vector (EMDV), Bag-of-Words based (BoW) similarity score, Jaccard similarity score (JAC), and the BERT-based semantic textual similarity score to determine entailment. The problem with this and similar lexical and/or semantic approaches is that they are measuring \textit{semantic similarity} to recognize \textit{semantic entailment}, when in reality, the two are in no way equal. Take the example of the sentence pair:
 \begin{flushleft}
     \textbf{Sentence A:} ``The cat is sleeping on the sofa''\\
     \textbf{Sentence B:} ``The dog is sleeping on the sofa''. 
@@ -315,7 +305,7 @@ Purely \textbf{logical approaches} to entailment, such as the one discussed in S
 The category of \textbf{AI approaches} described by Paramasivam and Nirmala \cite{PARAMASIVAM20229644} is a broad one, and is mostly used to designate deep learning entailment models that may focus to greater or lesser on lexical, semantic or logical elements of sentences depending on the model. As Poliak notes \cite{poliak-2020-survey}, the recent advances in deep learning have led to ``a resurgence of interest in RTE amongst NLP researchers'' (p.6). Indeed, one needs to only look at the SNLI leaderboard to see the high accuracy scores that have been achieved with such AI approaches - with the current leading benchmark having achieved 94.7\% accuracy. Despite such high accuracy scores, these AI approaches also suffer from important shortcomings. As Poliak points out \cite{poliak-2020-survey}, the resurgence of deep learning approaches to RTE ``did not primarily focus on using RTE as a means to evaluate NLP systems. Rather, researchers primarily used these datasets to compete with one another to achieve the top score on leaderboards for new RTE datasets.'' (p.6) Going further than this, Pavlick argues that the high scores achieved in some of these leaderboards actually provide ``little evidence to suggest [that RTE models] capture the type of compositional or world knowledge tested by datasets like the FraCas test suits,'' \cite{pavlick2017} which were deliberately crafted in a manner to challenge the ability of NLP systems to cope with a range of semantic phenomena. Further evidence that this is the case is provided by Sanwal \cite{sanwal2024evaluatinglargelanguagemodels}, who showed how an LLM-based model that achieved 89.9\% accuracy on the SNLI dataset experienced a significant performance drop of 17\%, to only achieve 72.5\% accuracy when tested on a `contrast set'. Sanwal suggests that this drop in performance was likely due to limitations of the SNLI dataset which lacks the nuanced and diverse examples that were integrated to their contrast set, and were deliberately created to expose the model to a ``broader spectrum of linguistic scenarios.'' (p. 2) \newline \par
 
 In summary, material shortcomings currently exist with every major category of approach to RTE tasks. While more recently `AI approaches' have yielded high accuracy scores on key datasets such as SNLI, their ability to generalise away from the often simple examples of these datasets is under scrutiny. By developing a metric for semantic entailment that is built upon solid logical and theoretical foundations, and that is demonstrable through topological data analysis, we seek to address some of these shortcomings since such a metric would:
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
     \item Measure semantic entailment, rather than semantic similarity
     \item Be robust enough to deal with entailment examples that involve more nuanced linguistic phenomena 
 \end{itemize}
@@ -328,7 +318,7 @@ The key visual entailment dataset, \textit{SNLI-VE}, was developed by Xie et al.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 1\hsize]{./figures/SNLI-VE.png}
+\includegraphics[width = 0.5\hsize]{./figures/SNLI-VE.png}
 \caption{An Example from SNLI-VE dataset}
 \label{fig:SNLI-VE}
 \end{figure}
@@ -338,21 +328,87 @@ In the same paper, Xie et al. propose both transformer and CNN-based architectur
 The visual entailment task is of relevance to this thesis because we hypothesise that the topological entailment relationship we seek to define between textual premise-hypothesis pairs in a high-dimensional embedding space could also hold for multimodal premise-hypothesis pairs, where an image serves as the premise and text as the hypothesis. This would require mapping both visual and textual representations into a shared embedding space, enabling the hyperbolic entailment cone framework, that we seek to develop to describe entailment relationships, to operate across modalities.
 
 \section{Topology of Language}
-Theoretical approaches followed by  practical?
+
 \subsection{Topological Data Analysis (TDA)}
+
+Topological Data Analysis (TDA) applies concepts from topology - a branch of mathematics - in the fields of computer and data science, based on the observation that data points have implicit shapes. \cite{savle-etal-2019-topological} Due to the fact that the `shape' of texts are not instantly obvious, TDA has not been explored as much in the field of NLP as it has been in certain other domains such as Computer Vision. \cite{uchendu2024unveilingtopologicalstructurestext} \newline \par
+
+Despite this, texts can well take the shape of their numerical representations, but different numerical representations of text will capture different linguistic features. Hence, the choice of representation matters, whether Term Frequency - Inverse Document Frequency (TF-IDF), Word2Vec, GloVe, or FastText embeddings are used \cite{uchendu2024unveilingtopologicalstructurestext}. There are two principal methods that TDA encompasses, which we shall provide a brief overview of:
 \subsubsection{Persistent Homology}
-\subsubsection{MAPPER}
+Persistent homology is the more popular of the two methods, and ``uses algebraic topology methods to extract topological signatures at different spatial dimensions. This process involves representing data as a point cloud and performing deformation or perturbation processes to extract the true `shape' of the data after the noise has been removed.'' \cite{uchendu2024unveilingtopologicalstructurestext} (p.2) We direct the interested reader to \cite{uchendu2024unveilingtopologicalstructurestext} for a more thorough explanation of the concepts underlying persistent homology. \newline \par 
+
+As a brief summary, data is represented as a point cloud in high-dimensional space, with an aim of systematically analysing how topological structures emerge and disappear as the data is examined at different resolutions. To achieve this, the Persistent Homology algorithm uses Vietoris-Rips complexes, which can be thought of as drawing circles of increasing radius around each data point in the point cloud. As the circles grow, they eventually touch and overlap, forming multi-dimensional simplicial complexes. During this process, topological features - characterised by their dimension - naturally appear and disappear. For example, connected components represent 0-dimensional holes ($\beta_0$), loops or tunnels represent 1-dimensional holes ($\beta_1$), and voids represent 2-dimensional holes ($\beta_2$) The algorithm carefully tracks when each feature is "born" (first appears) and when it "dies" (disappears due to merging or filling), which is important since features which have long `lifespans' represent robust structural properties of the data, while short-lived features are typically noise. An example of the Persistent Homology methodology and how it can be visualised is shown in Figure 2.3 taken from Huang et al. (p.2)
+
+\begin{figure}[H]
+\centering
+\includegraphics[height = 0.3\textheight]{./figures/PersistentHomology.png}
+\caption{$H_0$ and $H_1$ capture the number of connected components and number of holes at different resolutions}
+\label{fig:PersistentHomology}
+\end{figure}
+
+\subsubsection{Mapper}
+
+The other main tool commonly used in TDA feature extraction is \textit{Mapper}, proposed by Singh et al. \cite{singh2007} to visualize topological structures in data. Once again, we refer the interested reader to \cite{uchendu2024unveilingtopologicalstructurestext} for a more detailed explanation of the methodology, which we only briefly summarize here. \newline \par
+
+Mapper works by creating simplified graph representations of high-dimensional data through a combination of dimension reduction and clustering techniques. As such, it focuses on analysing and visualising the overall shape and connectivity structure of data, rather than tracking features of high dimensional data across different scales, as persistent homology does. The Mapper algorithm follows four main steps: 
+\begin{enumerate}[itemsep=0pt]
+    \item High-dimensional data is projected into a lower-dimensional space using any robust dimension reduction technique, such as Principal Component Analysis (PCA).
+    \item A cover is created of the projected space, using overlapping intervals of constant length.
+    \item For each interval in this cover, Mapper examines the corresponding pre-image - i.e. the original high-dimensional points projecting into that interval - and applies a clustering algorithm to group nearby points in each interval. This ensures that the clusters represent meaningful local neighbourhoods in the high-dimensional original space, preventing data points that were originally far apart from each other, but that were projected into the same lower dimensional interval, from ending up in the same cluster.
+    \item A graph is constructed where each vertex represents a cluster, and edges connect vertices whose corresponding clusters share common data points. In this way, the graph represents the connectivity structure of the original data and shows how different regions of the data relate to each other. 
+\end{enumerate}   
+
 \subsection{TDA applied to Language}
-\subsubsection{Fractal Geometry of Language}
-\subsubsection{Intrinsic Dimensionality}
-\subsubsection{Practical Applications of TDA in NLP}
+
+The application of TDA methodologies to language remains a relatively niche aspect within the broader field of NLP. Indeed, in the survey of TDA applications to NLP conducted by Uchendu and Le \cite{uchendu2024unveilingtopologicalstructurestext}, they could find no more than 87 relevant papers; most of which are very recent. Despite the limited exploration to date, some particularly interesting practical results have already been demonstrated. We overview a small sample of these results in this section to give the reader an understanding of what has been achieved already through TDA in language. They can be divided into three broad categories. \newline \par
+
+\textbf{TDA for analysis of linguistic similarity}. One of the key use cases of TDA in the domain of language has been to detect the similarity and differences between various linguistic inputs. On a more global scale, this includes work such as Port et al's analysis of the syntactic topology of different languages to investigate relatedness between and the development of language families (Indo-European, Niger-Congo, etc.) \cite{port2018, port2022}. On `smaller' scale, Zhu \cite{zhu2013} was able to demonstrate how the topological analysis of linguistic features in text allowed for reliable differentiation between the writing style's of children, adolescents, and adults. \newline \par
+
+\textbf{TDA for Text Classification}. The ability to exploit TDA to analyse linguistic similarity gave rose to a myriad of further applications where features extracted from TDA methodologies could help in text classification challenges including:
+\begin{itemize}[itemsep=0pt]
+    \item Robust detection of AI-generated/deepfake text detection \cite{uchendu2024topformertopologyawareauthorshipattribution, tulchinskii2023intrinsicdimensionestimationrobust, kushnareva2024aigeneratedtextboundarydetection}, and of fraudulent academic papers \cite{tymochko2021}
+    \item Grammatical acceptability classification \cite{cherniavskii-etal-2022-acceptability}
+    \item Text genre classification, e.g. of movie plots \cite{doshi2018}, and authorship attribution, e.g. of Persian poems \cite{elyasi2019introductionnewtextclassification}
+\end{itemize}
+
+\textbf{TDA for Semantic Meaning}. 
+
+
+- word manifolds for synthetic text detection
+- intrinsic dimensionality as artificial text detector
+- linguistic/grammatical acceptability
+- differentiation between children and adult writing style
+- semantic entailment in legal context
+
+
+
 \subsection{Euclidean vs. Hyperbolic Geometry for Entailment Mappings}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Project Plan}
-Chapter for Background Interim Report only, for second marker feedback
+Note: Chapter for Background Interim Report only for second marker feedback. \newline \newline
+\textbf{Aim to have completed by the end of July:}
+\begin{enumerate}[itemsep=0pt]
+    \item Using the SNLI dataset, experiment with different topological data analysis methods (e.g. persistent homology, mapper) using a variety of different contextualized word/sub-word embeddings (e.g. TF-IDF, Word2Vec, GloVe, FastText, WordPiece), to investigate whether a reliable entailment score/metric can be produced
+    \begin{itemize} [topsep=0pt, itemsep=0pt]
+        \item I.e., test the assumption that, if a hypothesis is semantically entailed by a given premise (whether visual or textual), there should be a topological connection (e.g a hyperbolic entailment cone) between the two statements in some higher dimensional space after mapping them using various TDA methods
+        \item Aim to find a robust entailment metric that would allow us to match the correct hypothesis with the premise that entails it, after randomization and shuffling of all premises and hypotheses in a given dataset. 
+        \item Such a dataset should contain hypotheses that are both entailed, neutral, and contradicted by the premises, so that the final matching will only assign a subset of the hypotheses as entailed by premises, with the rest assigned to either neutral or contradictory labels.
+    \end{itemize}
+    \item If successful in finding such an entailment metric, look to:
+    \begin{itemize}[topsep=0pt, itemsep=0pt]
+        \item Test it in further RTE datasets to ensure its robustness (e.g. FraCas, PASCAL)
+        \item Extend it create a differentiable function that can be used as a regularizer in LLM training – this function in essence being a means of measuring semantic entailment for the LLM
+    \end{itemize} 
+    \item Train an LLM using this regularizer, and compare its performance to other SOTA/benchmark models across key semantic entailment and visual entailment datasets
+\end{enumerate}
+\textbf{For August and beyond:}
+\begin{itemize} [itemsep=0pt]
+    \item Write up results in dissertation
+\end{itemize}
+ 
 
 
 
